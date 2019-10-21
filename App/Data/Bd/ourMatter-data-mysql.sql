@@ -19,3 +19,17 @@ null,
 "3123334534",
 "not_image",
 "R00T");
+
+INSERT INTO usuario VALUE
+("valentina-5", md5("estudiante_v5"), true),
+("leidy-4", md5("estudiante_l4"), true),
+("julieth-3", md5("estudiante_j3"), true),
+("luis-2", md5("estudiante_l2"), true),
+("juan-1", md5("estudiante_j1"), true);
+
+INSERT INTO estudiante values
+(null, 'Valentina', 'Pantoja Angulo', 'valentina-5'),
+(null, 'Leidy Stephania', 'Angulo Botina', 'leidy-4'),
+(null, 'Julieth Veronica', 'Benavides Ortega', 'julieth-3'),
+(null, 'Luis Daniel', 'Rosero Peñafiel', 'luis-2'),
+(null, 'Juan Carlos', 'Gonzalez Montero', 'juan-1');

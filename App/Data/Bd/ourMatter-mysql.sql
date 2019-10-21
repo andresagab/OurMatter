@@ -4,7 +4,7 @@ CREATE DATABASE ourMatter;
 USE ourmatter;
 
 CREATE TABLE usuario(
-    usuario varchar(10) PRIMARY KEY,
+    usuario varchar(20) PRIMARY KEY,
     contrasena varchar(32) not null,
     estado boolean not null
 );
@@ -13,7 +13,7 @@ CREATE TABLE estudiante(
     id int AUTO_INCREMENT PRIMARY KEY,
     nombres varchar(30) not null,
     apellidos varchar(30) not null,
-    usuario varchar(10) not null unique,
+    usuario varchar(20) not null unique,
     INDEX(usuario),
     FOREIGN KEY (usuario) REFERENCES usuario(usuario) ON DELETE RESTRICT ON UPDATE CASCADE
 );
