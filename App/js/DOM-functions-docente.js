@@ -5,7 +5,9 @@
 $(document).ready(function () {
     var heigth = $("body").height() - ($("#navbarMenu").height() + parseInt($("#navbarMenu").css("padding-top").toString().substring(0, $("#navbarMenu").css("padding-top").toString().indexOf("px", 0))));
     $("#containerFull").height(heigth - 9);
-    //$("#containerFull").load('./App/pages/publico/inicio.html');
+    $("#containerFull").load('./../docente/main.php');
+
+    $("#btnHome").click(function () {$("#containerFull").load('./../docente/main.php');});
 
     $("#btnLogOut").click(function () {
         logOut();

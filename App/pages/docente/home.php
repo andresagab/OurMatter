@@ -1,8 +1,7 @@
 <?php
-session_start();
-if (isset($_SESSION['USUARIO'])) {
-    $USUARIO = unserialize($_SESSION['USUARIO'])['usuario'];
-    if (strtolower($USUARIO['typeUser']) == 'docente') {
+include_once dirname(__FILE__) . './../../php/Scripts/session_manager.php';
+if ($session){
+    if (strtolower(@$USUARIO['typeUser']) == 'docente') {
         ?>
         <!DOCTYPE html>
         <html>
@@ -17,14 +16,13 @@ if (isset($_SESSION['USUARIO'])) {
                 <script src="../../js/DOM-functions-docente.js"></script>
                 <script src="../../frameworks/Bootstrap/js/bootstrap.min.js"></script>
                 <script src="../../frameworks/Bootstrap/js/bootstrap.bundle.min.js"></script>
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
             </head>
             <body class="bg-dark">
             <!--MENU-->
             <nav id="navbarMenu" class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
-                <a id="btnHome" class="navbar-brand active" data-toggle="tooltip" data-placement="bottom"
-                   title="Química - Inicio">
+                <a id="btnHome" class="navbar-brand active" data-toggle="tooltip" data-placement="bottom" title="Química - Inicio">
                     <img src="../../img/Q.png" width="30px" height="30px" class="d-inline-block bg-dark" alt="">
-                    <!--Quimica-->
                 </a>
                 <button id="btnToggleMenu" class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#optionsNavBar" aria-controls="optionsNavBar" aria-expanded="false"
@@ -33,9 +31,28 @@ if (isset($_SESSION['USUARIO'])) {
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="optionsNavBar">
                     <ul class="navbar-nav">
+                        <li class="nav-item" id="btnContenidos">
+                            <a class="nav-link" href="#">
+                                Contenidos
+                            </a>
+                        </li>
+                        <li class="nav-item" id="btnEvaluaciones">
+                            <a class="nav-link" href="#">
+                                Evaluaciones
+                            </a>
+                        </li>
+                        <li class="nav-item" id="btnEstudiantes">
+                            <a class="nav-link" href="#">
+                                Estudiantes
+                            </a>
+                        </li>
+                        <li class="nav-item" id="btnConfiguracion">
+                            <a class="nav-link" href="#">
+                                Configuración
+                            </a>
+                        </li>
                         <li class="nav-item" id="btnLogOut">
                             <a class="nav-link" href="#">
-                                <!--<a class="nav-link" href="../../../index.php">-->
                                 Cerrar sesión
                             </a>
                         </li>
@@ -44,11 +61,11 @@ if (isset($_SESSION['USUARIO'])) {
             </nav>
             <!--END MENU-->
             <!--CONTENT-->
-            <div id="containerFull" class="pt-5">
-                <h1 class="display-1 text-center text-light">DOCENTE</h1>
-                <h6 class="display-4 text-center text-light"><?= $USUARIO['usuario'] ?></h6>
-            </div>
+            <div id="containerFull" class="pt-5"></div>
             <!--END CONTENT-->
+            <!--INPUT CONTROLLS-->
+                <!--PENDING...-->
+            <!--END INPUT CONTROLLS-->
             </body>
         </html>
         <?php
