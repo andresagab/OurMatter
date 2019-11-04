@@ -14,7 +14,7 @@ if (isset($_SESSION['USUARIO'])) {
                 <link rel="stylesheet" href="../../frameworks/MaterialIcons/material-icons.css">
                 <link rel="stylesheet" href="../../css/ourMatter.css">
                 <script src="../../js/jquery-3.4.1.min.js"></script>
-                <script src="../../js/DOM-functions-estudiante.js"></script>
+                <script src="../../js/estudiante/DOM-functions-estudiante.js"></script>
                 <script src="../../frameworks/Bootstrap/js/bootstrap.min.js"></script>
                 <script src="../../frameworks/Bootstrap/js/bootstrap.bundle.min.js"></script>
             </head>

@@ -13,10 +13,11 @@ if ($session){
                 <link rel="stylesheet" href="../../frameworks/MaterialIcons/material-icons.css">
                 <link rel="stylesheet" href="../../css/ourMatter.css">
                 <script src="../../js/jquery-3.4.1.min.js"></script>
-                <script src="../../js/DOM-functions-docente.js"></script>
+                <script src="../../js/DOM-functions-general.js"></script>
+                <script src="../../js/docente/DOM-functions-docente.js"></script>
                 <script src="../../frameworks/Bootstrap/js/bootstrap.min.js"></script>
                 <script src="../../frameworks/Bootstrap/js/bootstrap.bundle.min.js"></script>
-                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                <!--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>-->
             </head>
             <body class="bg-dark">
             <!--MENU-->
@@ -24,9 +25,7 @@ if ($session){
                 <a id="btnHome" class="navbar-brand active" data-toggle="tooltip" data-placement="bottom" title="Química - Inicio">
                     <img src="../../img/Q.png" width="30px" height="30px" class="d-inline-block bg-dark" alt="">
                 </a>
-                <button id="btnToggleMenu" class="navbar-toggler" type="button" data-toggle="collapse"
-                        data-target="#optionsNavBar" aria-controls="optionsNavBar" aria-expanded="false"
-                        aria-label="Toggle navigation">
+                <button id="btnToggleMenu" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#optionsNavBar" aria-controls="optionsNavBar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="optionsNavBar">
@@ -61,11 +60,39 @@ if ($session){
             </nav>
             <!--END MENU-->
             <!--CONTENT-->
-            <div id="containerFull" class="pt-5"></div>
+            <div id="containerFull" class="pt-5">
+                <!--SPINNER LOAD-->
+                <div id="spinnerLoadHome">
+                    <div class="d-flex justify-content-center p-3" >
+                        <div class="spinner-grow text-warning" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <!--END SPINNER LOAD-->
+                <!--PAGE CONTENT-->
+                <div id="contentPage" class="align-self-center h-100"></div>
+                <!--END PAGE CONTENT-->
+            </div>
             <!--END CONTENT-->
             <!--INPUT CONTROLLS-->
                 <!--PENDING...-->
             <!--END INPUT CONTROLLS-->
+            <!--TOAS MJS-->
+            <div class="toast position-fixed" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000" style="position: absolute; top: 15px; left: 15px; z-index: 1100;">
+                    <div class="toast-header">
+                        <!--<img src="App/img/Q.png" class="rounded mr-2">-->
+                        <strong class="mr-auto">OurMatter</strong>
+                        <small class="text-muted">Hace un momento</small>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body" id="toastText">
+                        <span id="textToast"></span>
+                    </div>
+                </div>
+            <!--END TOAS MJS-->
             </body>
         </html>
         <?php

@@ -19,8 +19,7 @@ jQuery(document).on('submit', '#frmLogin', function (event) {
             validMessageAlert();
         }
     }).fail(function (response) {
-        console.log(response);
-    }).always(function () {
-        console.log("complete")
-    });
+        $('#toastAction').val('-2');
+        validMessageAlert();
+    }).always(function () {});
 });

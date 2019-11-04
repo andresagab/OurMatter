@@ -21,7 +21,7 @@ $toast = "<input type='hidden' id='toastAction' name='toastAction' value='$tm'>"
         <link rel="stylesheet" href="App/frameworks/MaterialIcons/material-icons.css">
         <link rel="stylesheet" href="App/css/ourMatter.css">
         <script src="App/js/jquery-3.4.1.min.js"></script>
-        <script src="App/js/DOM-functions-publico.js"></script>
+        <script src="App/js/publico/DOM-functions-publico.js"></script>
         <script src="App/js/login.js"></script>
         <script src="App/frameworks/Bootstrap/js/bootstrap.min.js"></script>
         <script src="App/frameworks/Bootstrap/js/bootstrap.bundle.min.js"></script>

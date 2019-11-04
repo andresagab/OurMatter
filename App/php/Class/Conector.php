@@ -18,15 +18,17 @@ class Conector {
     }
 
     private function conectar($bd){
+        $connect = false;
         try {
             if ($bd==null) $bd=$this->bd;
             $opciones=array();
             $this->conexion=new PDO("$this->controlador:host=$this->servidor;port=$this->puerto;dbname=$bd",$this->usuario, $this->clave,$opciones);
+            $connect = true;
         } catch (Exception $exc) {
             $this->conexion=null;            
             echo 'Error en la conexion con la bd ' . $exc->getMessage();
-            die();
         }
+        return $connect;
     }
     
     private function desconectar(){
@@ -35,18 +37,32 @@ class Conector {
     
     public static function ejecutarQuery($sql, $bd){
         $conector = new Conector();
-        $conector->conectar($bd);
-        $sentencia = $conector->conexion->prepare($sql);
-        if (!$sentencia->execute()){
-            echo "Error al ejecutar $sql en $bd";
-            $conector->desconectar();
-            return(false);
-        } else {
-            $consulta=$sentencia->fetchAll();
-            $sentencia->closeCursor();
-            $conector->desconectar();            
-            return($consulta);//comprobar que retorna en un insert, delete y update
-        }
+        if ($conector->conectar($bd)) {
+            $sentencia = $conector->conexion->prepare($sql);
+            if (!$sentencia->execute()){
+                echo "Error al ejecutar $sql en $bd";
+                $conector->desconectar();
+                return(false);
+            } else {
+                $consulta=$sentencia->fetchAll();
+                $sentencia->closeCursor();
+                $conector->desconectar();
+                return($consulta);//comprobar que retorna en un insert, delete y update
+            }
+        } else return false;
+    }
+
+    public static function executeAUD($sql){
+        $status = false;
+        $connect = new Conector();
+        $connect->conectar(null);
+        $statement = $connect->conexion->prepare($sql);
+        if ($statement->execute()){
+            $status = true;
+        } else echo "Error al ejecutar $sql";
+        //$statement->closeCursor();
+        $connect->desconectar();
+        return $status;
     }
 
     public static function ejecutarQueryMultiple($cadenaSQL,$bd){

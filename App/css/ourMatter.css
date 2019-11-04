@@ -4,6 +4,10 @@ body, html{
     height: 100%;
 }
 
+.text-normal{
+    font-weight: normal;
+}
+
 .text-s30{
     font-size: 30px;
     font-weight: normal;
