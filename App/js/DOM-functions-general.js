@@ -4,28 +4,10 @@
 * Email: andrescabj981@gmail.com
 * */
 
-function validFormForClass(valClass) {
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            //var forms = document.getElementsByClassName('needs-validation');
-            var forms = document.getElementsByClassName(valClass);
-            console.log(forms);
-            // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-}
-
+/**
+ * @description Esta función permite cargar un script js apartir de su ruta relativa
+ * @param {String} url : ruta relativa del archivo que se desea cargar al DOM
+ */
 function loadScript(url){
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
@@ -91,6 +73,8 @@ function spinnerLoad(id, status) {
 * 12 = Algunos campos del formulario no son correctos, verificalos e intentalo nuevamente.
 * 13 = Los datos actuales no serán modificados.
 * 14 = Algunos datos se ejecutaron correctamente, sin embargo se registro una falla con otra porción de los datos.
+* 15 = No se pudo conectar con la base de datos.
+* 16 = Aún no se han registrado datos.
 * */
 function statusToast(extraMjs) {
     if (document.getElementById('toastAction') != null) {
@@ -110,6 +94,8 @@ function statusToast(extraMjs) {
         else if (num_status === '12') mjs = "Algunos campos del formulario no son correctos, verificalos e intentalo nuevamente.";
         else if (num_status === '13') mjs = "Los datos actuales no serán modificados.";
         else if (num_status === '14') mjs = "Algunos datos se ejecutaron correctamente, sin embargo se registro una falla con otra porción de los datos.";
+        else if (num_status === '15') mjs = "No se pudo conectar con la base de datos.";
+        else if (num_status === '16') mjs = "Aún no se han registrado datos.";
         $('#textToast').text(mjs);
         if (num_status != 0) $('.toast').toast('show');
         else $('.toast').toast('hide');
@@ -135,6 +121,8 @@ function statusToast(extraMjs) {
  * 12 = Algunos campos del formulario no son correctos, verificalos e intentalo nuevamente.
  * 13 = Los datos actuales no serán modificados.
  * 14 = Algunos datos se ejecutaron correctamente, sin embargo se registro una falla con otra porción de los datos.
+ * 15 = No se pudo conectar con la base de datos.
+ * 16 = Aún no se han registrado datos.
  * */
 function setValToastAction(num_status) {
     if (document.getElementById('toastAction') != null) $("#toastAction").val(num_status.toString());
@@ -219,4 +207,25 @@ function loadImage(url)
     var image = new Image();
     image.src = url;
     return image;
+}
+
+/**
+ * @description Esta función ejecuta o hace llamado al tooltip de bootstrap 4.3
+ */
+function exeTooltip() {
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+}
+
+/**
+ * @description Esta función carga la imagen el elemento img pasado como paramatro por su id
+ * @param {String} idImgElement : Id del elemento img
+ * @param {HTMLElement} inputFile : Input de type file
+ * @param {String} sourceNotImage : Ruta relativa del archivo not_image.jpg
+ */
+function viewPhoto(idImgElement, inputFile, sourceNotImage) {
+    if (inputFile != null)
+        if (inputFileValid(inputFile)) $(idImgElement).attr('src', URL.createObjectURL(inputFile.files[0]));
+    else $(idImgElement).attr('src', sourceNotImage);
 }

@@ -9,11 +9,16 @@ $(document).ready(function () {
     $("#contentPage").load('./main.php');
     statusToast(null);
     spinnerLoad('#spinnerLoadHome', false);
+    exeTooltip();
 
     $("#btnHome").click(function () {$("#contentPage").load('./main.php');});
     $("#btnConfiguracion").click(function () {
         $("#contentPage").load('./configuracion.php');
         loadScript('./../../js/docente/configuracion.js');
+    });
+    $("#btnContenidos").click(function () {
+        $("#contentPage").load('./contenidos.php');
+        loadScript('./../../js/docente/contenidos.js');
     });
 
     $("#btnLogOut").click(function () {logOut();});
@@ -23,10 +28,6 @@ $(document).ready(function () {
 
 $(window).resize(function () {
     $("body").height("100%");
-});
-
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
 });
 
 function logOut() {

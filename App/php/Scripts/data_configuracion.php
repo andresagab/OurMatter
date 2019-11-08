@@ -1,9 +1,9 @@
 <?php
-/*
+/**
  * @version En este archivo se procesan todas las peticiones Http (GET - POST) correspondiente a la pagina configuracion
  * del rol Docente
- * Autor: Andres Geovanny Angulo Botina
- * Email: andrescabj981@gmail.com
+ * @Autor: Andres Geovanny Angulo Botina
+ * @Email: andrescabj981@gmail.com
  */
 date_default_timezone_set("America/Bogota");
 include_once dirname(__FILE__) .'./general_funcitons.php';

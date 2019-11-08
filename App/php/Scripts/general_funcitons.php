@@ -69,3 +69,22 @@ function getExtFile($fileName){
     }
     return $ext;
 }
+
+/**
+ * @param $table String: Nombre de la tabla en la que se desea consultar
+ * @param $nameId String: Nombre del campo id que se desea consultar en su maximo valor
+ * @return Int Valor entero del ultimo id ingresado en la tabla.
+ */
+function getLastID($table, $nameId){
+    $number = 0;
+    if ($table != null && $nameId != null) {
+        $sql = "select max($nameId) as lastId from $table";
+        if (is_array($result = Conector::ejecutarQuery($sql, null))) {
+            if (count($result) > 0) {
+                if (isset($result[0]['lastId']))
+                    if ($result[0]['lastId'] != null) $number = $result[0]['lastId'];
+            }
+        }
+    }
+    return $number;
+}

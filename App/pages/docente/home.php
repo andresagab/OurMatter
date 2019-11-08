@@ -75,9 +75,6 @@ if ($session){
                 <!--END PAGE CONTENT-->
             </div>
             <!--END CONTENT-->
-            <!--INPUT CONTROLLS-->
-                <!--PENDING...-->
-            <!--END INPUT CONTROLLS-->
             <!--TOAS MJS-->
             <div class="toast position-fixed" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000" style="position: absolute; top: 15px; left: 15px; z-index: 1100;">
                     <div class="toast-header">
