@@ -22,7 +22,7 @@ if ($session) {
                     $object->setImg($fileName = uploadFile($_FILES, 'fileImg', './../../img/docente/contenidos/', 'tema_img_' . (getLastID('tema', 'id') + 1) . '_id'));
                     if ($object->getImg() == 'not_image') $tm = '14';
                     if ($object->add())
-                        if ($tm != '14') $tm = '2';
+                        if ($tm != '14') $tm = '1';
                 }
                 break;
             case 'editar':
@@ -46,6 +46,6 @@ if ($session) {
                 }
                 break;
         }
-        header("Location: ./home.php?tm=$tm");
+        header("Location: ./home.php?pg=1&tm=$tm");
     } else header("Location: ./../../../index.php?tm=-1");
 }

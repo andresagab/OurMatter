@@ -22,6 +22,7 @@ if ($session) {
             $object = new Tema(null, null, null, null);
         }
         ?>
+        <script src="./../../js/docente/contenidosFrm.js"></script>
         <div class="col-xl-12 h-100">
             <div class="row h-100">
                 <!--HEAD PAGE-->

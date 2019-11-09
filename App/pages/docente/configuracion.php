@@ -8,6 +8,7 @@ $tm = 0;
 if ($session) {
     if (strtolower(@$USUARIO['typeUser']) == 'docente') {
         ?>
+        <script src="./../../js/docente/configuracion.js"></script>
         <div class="col-xl-12 h-100">
             <div class="row h-100">
                 <div class="col-xl-12 align-self-center pt-5 pb-5">
@@ -55,8 +56,8 @@ if ($session) {
                                         </div>
                                     </div>
                                     <div class="card-footer bg-secondary border-light text-right">
-                                        <button class="btn btn-danger" id="btnGeneralCancel" type="button" data-toggle="collapse" data-target="#cardGeneral" aria-expanded="true" aria-controls="cardGeneral">Cancelar</button>
-                                        <button class="btn btn-success" id="btnGeneralSave" type="button">Guardar</button>
+                                        <button class="btn btn-danger" id="btnGeneralCancel" type="button" data-toggle="collapse" data-target="#cardGeneral" aria-expanded="true" aria-controls="cardGeneral" onclick="actionGeneralCancel();">Cancelar</button>
+                                        <button class="btn btn-success" id="btnGeneralSave" type="button" onclick="actionGeneralSave();">Guardar</button>
                                     </div>
                                 </form>
                             </div>
@@ -103,7 +104,7 @@ if ($session) {
                                             </div>
                                             <div class="form-group">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="fotoDocente" accept="image/jpeg, .png, .gif">
+                                                    <input type="file" class="custom-file-input" id="fotoDocente" accept="image/jpeg, .png, .gif" onchange="actionImgDocente(this);" oncancel="actionImgDocente();">
                                                     <label class="custom-file-label" for="fotoDocente">Seleccionar imagen</label>
                                                 </div>
                                                 <div class="invalid-tooltip">Este campo no puede estar vacío.</div>
@@ -120,8 +121,8 @@ if ($session) {
                                     </div>
                                 </div>
                                 <div class="card-footer bg-secondary border-light text-right">
-                                    <button class="btn btn-danger" id="btnDocenteCancel" type="button" data-toggle="collapse" data-target="#cardDocente" aria-expanded="true" aria-controls="cardDocente">Cancelar</button>
-                                    <button class="btn btn-success" id="btnDocenteSave" type="button">Guardar</button>
+                                    <button class="btn btn-danger" id="btnDocenteCancel" type="button" data-toggle="collapse" data-target="#cardDocente" aria-expanded="true" aria-controls="cardDocente" onclick="actionDocenteCancel();">Cancelar</button>
+                                    <button class="btn btn-success" id="btnDocenteSave" type="button" onclick="actionDocenteSave();">Guardar</button>
                                 </div>
                             </form>
                         </div>
@@ -165,7 +166,7 @@ if ($session) {
                                                     <img src="" class="img-fluid p-3 border-light" id="img_principal">
                                                 </div>
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="imgPrincipal" accept="image/jpeg, .png, .gif">
+                                                    <input type="file" class="custom-file-input" id="imgPrincipal" accept="image/jpeg, .png, .gif" onchange="actionImgMateriaPrincipal(this);" oncancel="actionImgMateriaPrincipal(this);">
                                                     <label class="custom-file-label" for="imgPrincipal">Seleccionar imagen</label>
                                                 </div>
                                                 <div class="invalid-feedback">Este campo no puede estar vacío.</div>
@@ -178,7 +179,7 @@ if ($session) {
                                                     <img src="" class="img-fluid p-3 border-light" id="img_informacion">
                                                 </div>
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="imgInformacion" accept="image/jpeg, .png, .gif">
+                                                    <input type="file" class="custom-file-input" id="imgInformacion" accept="image/jpeg, .png, .gif" onchange="actionImgMateriaInformacion(this);" oncancel="actionImgMateriaInformacion(this);">
                                                     <label class="custom-file-label" for="imgInformacion">Seleccionar imagen</label>
                                                 </div>
                                                 <div class="invalid-feedback">Este campo no puede estar vacío.</div>
@@ -187,8 +188,8 @@ if ($session) {
                                     </div>
                                 </div>
                                 <div class="card-footer bg-secondary border-light text-right">
-                                    <button class="btn btn-danger" id="btnMateriaCancel" type="button" data-toggle="collapse" data-target="#cardMateria" aria-expanded="true" aria-controls="cardMateria">Cancelar</button>
-                                    <button class="btn btn-success" id="btnMateriaSave" type="button">Guardar</button>
+                                    <button class="btn btn-danger" id="btnMateriaCancel" type="button" data-toggle="collapse" data-target="#cardMateria" aria-expanded="true" aria-controls="cardMateria" onclick="actionMateriaCancel();">Cancelar</button>
+                                    <button class="btn btn-success" id="btnMateriaSave" type="button" onclick="actionMateriaSave();">Guardar</button>
                                 </div>
                             </form>
                         </div>

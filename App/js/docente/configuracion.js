@@ -5,8 +5,10 @@
 */
 $("#containerFull").ready(function () {
 
-    loadData();
-    statusToast(null);
+    setTimeout(function () {
+        loadData();
+        statusToast(null);
+    }, 500);
 
 });
 
@@ -131,17 +133,17 @@ function actionFrmGeneral() {
 }
 
 /**
- * @description : Acciones correspondientes al hacer click sobre el boton de id "btnGeneralSave".
+ * @description Acciones correspondientes al hacer click sobre el boton de id "btnGeneralSave".
  */
-$("#btnGeneralSave").click(function () {
+function actionGeneralSave(){
     if (validElementsForm(['txtNameInstitucion', 'txtGrado'])) actionFrmGeneral();
     else {
         setValToastAction('12');
         statusToast(null);
     }
-});
+}
 
-$("#btnGeneralCancel").click(function () {setGeneralFields();});
+function actionGeneralCancel(){setGeneralFields();}
 //END FORM GENERAL
 /*-------------------------------------------------------------------------------------------------------------------*/
 //FORM DOCENTE
@@ -198,23 +200,28 @@ function actionFrmDocente() {
 /**
  * @description : Acciones correspondientes al hacer click sobre el boton de id "btnDocenteSave".
  */
-$("#btnDocenteSave").click(function () {
+function actionDocenteSave(){
     if (validElementsForm(['txtNameDocente', 'txtEmailDocente', 'txtCelDocente'])) actionFrmDocente();
     else {
         setValToastAction('12');
         statusToast(null);
     }
-});
+}
 
-$("#btnDocenteCancel").click(function () {setDocenteFields();});
+function actionDocenteCancel(){setDocenteFields();}
 
 /**
  * Cuando el input con id 'fotoDocente' cambie se carga la foto en el visualizador de imagen correspondiente.
+ * @param {HTMLElement} element Input de type img
  */
-$("#fotoDocente").change(function () {
+function actionImgDocente(element) {
+    if (inputFileValid(element)) $("#foto_Docente").attr('src', URL.createObjectURL(element.files[0]));
+    else $("#foto_Docente").attr('src', './../../img/not_image.jpg');
+}
+/*$("#fotoDocente").change(function () {
     if (inputFileValid(this)) $("#foto_Docente").attr('src', URL.createObjectURL(this.files[0]));
     else $("#foto_Docente").attr('src', './../../img/not_image.jpg');
-});
+});*/
 //END FORM DOCENTE
 /*-------------------------------------------------------------------------------------------------------------------*/
 //FORM MATERIA
@@ -273,31 +280,42 @@ function actionFrmMateria() {
 /**
  * @description : Acciones correspondientes al hacer click sobre el boton de id "btnDocenteSave".
  */
-$("#btnMateriaSave").click(function () {
+function actionMateriaSave() {
     if (validElementsForm(['txtNameMateria', 'txtDescripcionMateria'])) actionFrmMateria();
     else {
         setValToastAction('12');
         statusToast(null);
     }
-});
+}
 
-$("#btnMateriaCancel").click(function () {setMateriaFields();});
+function actionMateriaCancel() {setMateriaFields();};
 
 /**
  * Cuando el input con id 'imgPrincipal' cambie se carga la foto en el visualizador de imagen correspondiente.
+ * @param {HTMLElement} element Input de type img
  */
-$("#imgPrincipal").change(function () {
+function actionImgMateriaPrincipal(element){
+    if (inputFileValid(element)) $("#img_principal").attr('src', URL.createObjectURL(element.files[0]));
+    else $("#img_principal").attr('src', './../../img/not_image.jpg');
+}
+
+/*$("#imgPrincipal").change(function () {
     if (inputFileValid(this)) $("#img_principal").attr('src', URL.createObjectURL(this.files[0]));
     else $("#img_principal").attr('src', './../../img/not_image.jpg');
-});
+});*/
 
 /**
  * Cuando el input con id 'imgInformacion' cambie se carga la foto en el visualizador de imagen correspondiente.
+ * @param {HTMLElement} element Input de type img
  */
-$("#imgInformacion").change(function () {
+function actionImgMateriaInformacion(element) {
+    if (inputFileValid(element)) $("#img_informacion").attr('src', URL.createObjectURL(element.files[0]));
+    else $("#img_informacion").attr('src', './../../img/not_image.jpg');
+}
+/*$("#imgInformacion").change(function () {
     if (inputFileValid(this)) $("#img_informacion").attr('src', URL.createObjectURL(this.files[0]));
     else $("#img_informacion").attr('src', './../../img/not_image.jpg');
-});
+});*/
 
 /**
  * @description Esta función limpia los valores de los inputs file con id 'imgPrincipal' e 'imgInformacion'

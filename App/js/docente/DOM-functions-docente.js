@@ -1,25 +1,15 @@
-/*
-* Autor: Andres Geovanny Angulo Botina
-* Email: andresgeovanny@udenar.edu.co
+/**
+ * @description Archivo con las funciones generales del rol docente
+ * @Autor: Andres Geovanny Angulo Botina
+ * @Email: andresgeovanny@udenar.edu.co
 * */
+
 $(document).ready(function () {
     //MAIN CONF
-    var heigth = $("body").height() - ($("#navbarMenu").height() + parseInt($("#navbarMenu").css("padding-top").toString().substring(0, $("#navbarMenu").css("padding-top").toString().indexOf("px", 0))));
-    $("#containerFull").height(heigth - 9);
-    $("#contentPage").load('./main.php');
-    statusToast(null);
     spinnerLoad('#spinnerLoadHome', false);
     exeTooltip();
-
-    $("#btnHome").click(function () {$("#contentPage").load('./main.php');});
-    $("#btnConfiguracion").click(function () {
-        $("#contentPage").load('./configuracion.php');
-        loadScript('./../../js/docente/configuracion.js');
-    });
-    $("#btnContenidos").click(function () {
-        $("#contentPage").load('./contenidos.php');
-        loadScript('./../../js/docente/contenidos.js');
-    });
+    var heigth = $("body").height() - ($("#navbarMenu").height() + parseInt($("#navbarMenu").css("padding-top").toString().substring(0, $("#navbarMenu").css("padding-top").toString().indexOf("px", 0))));
+    $("#containerFull").height(heigth - 9);
 
     $("#btnLogOut").click(function () {logOut();});
     //END MAIN CONF
@@ -30,6 +20,9 @@ $(window).resize(function () {
     $("body").height("100%");
 });
 
+/**
+ * @description Se hace el llamado al cierre de sesiones
+ */
 function logOut() {
     jQuery.ajax({
         url: '../../php/Scripts/login.php',

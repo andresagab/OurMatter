@@ -88,3 +88,26 @@ function getLastID($table, $nameId){
     }
     return $number;
 }
+
+/**
+ * @version Este método nos retorna el nombre de la página que es pasada como parametro y esta en md5()
+ * @param $pageId String Md5 : Nombre de la página encriptada con md5()
+ * @return string Nombre de la página correspondiente al $pageId, si el valor retornado es nulo la página no pertenece
+ * a este rol.
+ */
+function getPageDocente($pageId){
+    $pageName = '';
+    if (is_dir(dirname(__FILE__) . './../../pages/docente/')){
+        $dir = opendir(dirname(__FILE__) . './../../pages/docente/');
+        while ($file = readdir($dir)) {
+            if (is_file($file))
+            {
+                if ($pageId == md5($file)){
+                    $pageName = $file;
+                    break;
+                }
+            }
+        }
+    }
+    return $pageName;
+}

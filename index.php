@@ -3,7 +3,7 @@ session_start();
 if (isset($_SESSION['USUARIO'])) {
     $session = unserialize($_SESSION['USUARIO']);
     if ($session['usuario']['usuario'] != null) {
-        if (strtolower($session['usuario']['typeUser']) == 'docente') header("Location: ./App/Pages/docente/home.php");
+        if (strtolower($session['usuario']['typeUser']) == 'docente') header("Location: ./App/Pages/docente/home.php?pg=0");
         else header("Location: ./App/Pages/estudiante/home.php");
     }
 }

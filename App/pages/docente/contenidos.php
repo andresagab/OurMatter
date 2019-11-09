@@ -32,6 +32,7 @@ if ($session) {
                         $srcImg = "./../../img/not_image.jpg";
                         if (file_exists(dirname(__FILE__) . "./../../img/docente/contenidos/{$object->getImg()}")) $srcImg = "./../../img/docente/contenidos/{$object->getImg()}";
                         $list .= "
+                                <script src='./../../js/docente/contenidos.js'></script>
                                 <!--CARD TEMA : {$object->getNombre()}-->
                                 <div class='col-xl-4'>
                                     <div class='card mb-4 shadow-sm'>
@@ -44,7 +45,7 @@ if ($session) {
                                                     <button type='button' class='btn btn-sm btn-outline-primary' data-toggle='tooltip' data-placement='bottom' title='Abrir'>
                                                         <span class='material-icons align-middle'>open_in_new</span>
                                                     </button>
-                                                    <button type='button' class='btn btn-sm btn-outline-success' data-toggle='tooltip' data-placement='bottom' title='Editar' onclick='openFrm({$object->getId()});'>
+                                                    <button type='button' class='btn btn-sm btn-outline-success' data-toggle='tooltip' data-placement='bottom' title='Editar' onclick='openFrm({$object->getId()}, " . '"' . md5('contenidosFrm.php') . '"' . ");'>
                                                         <span class='material-icons align-middle'>edit</span>
                                                     </button>
                                                     <button type='button' class='btn btn-sm btn-outline-danger' data-toggle='modal' data-target='#del_{$object->getId()}' $btnDelete>
@@ -97,7 +98,7 @@ if ($session) {
                                 <h3 class="display-4">CONTENIDOS</h3>
                             </div>
                             <div class="col-xl-2 align-self-center">
-                                <button class="btn btn-outline-light" id="btnAddContenidos" onclick="openFrm(null)">
+                                <button class="btn btn-outline-light" id="btnAddContenidos" onclick="openFrm(null, '<?= md5('contenidosFrm.php') ?>')">
                                     <span class="">Agregar <i class="material-icons align-middle">add</i></span>
                                 </button>
                             </div>

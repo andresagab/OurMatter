@@ -13,11 +13,9 @@ $("#containerFull").ready(function () {
 /**
  * @description Esta método abre el formulario de registro.
  */
-function openFrm(id) {
-    if (id != null) $("#contentPage").load('./contenidosFrm.php?id=' + id);
-    else $("#contentPage").load('./contenidosFrm.php');
-    loadScript('./../../js/docente/contenidosFrm.js');
-    exeTooltip();
+function openFrm(id, file) {
+    if (id != null) location.href = location.origin + location.pathname + '?pg=5&fl=' + file + '&id=' + id;
+    else location.href = location.origin + location.pathname + '?pg=5&fl=' + file;
 };
 
 function deleteRecord(id) {

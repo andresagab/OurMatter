@@ -9,6 +9,9 @@ $("#containerFull").ready(function () {
 
 });
 
+/**
+ * @version Con este método retornamos a la página padre de contenidos
+ */
 function backPageContent() {
-    $("#contentPage").load('./contenidos.php');
+    location.href = location.origin + location.pathname + '?pg=1';
 };
