@@ -112,7 +112,7 @@ if ($session) {
                         }
                         //Agregamos el cuadro de dialogo que nos permite confirmar la eliminación de un registro
                         $list .="
-                        <!--DIALOG DELETE TEMA ID: {$object->getNombre()}-->
+                        <!--DIALOG DELETE SUBTEMA ID: {$object->getNombre()}-->
                         <div class='modal fade' id='del_{$object->getId()}' tabindex='-1' role='dialog' aria-labelledby='cardModalCenterTitle_{$object->getId()}' aria-hidden='true'>
                             <div class='modal-dialog modal-dialog-centered' role='document'>
                                 <div class='modal-content'>
@@ -132,7 +132,7 @@ if ($session) {
                                 </div>
                             </div>
                         </div>
-                        <!--END DIALOG DELETE TEMA ID: {$object->getNombre()}-->
+                        <!--END DIALOG DELETE SUBTEMA ID: {$object->getNombre()}-->
                         ";
                         $alignItem = !$alignItem;
                     }
@@ -182,79 +182,6 @@ if ($session) {
         </div>
         <?= $list; ?>
         <!--END SUBCONTENIDOS-->
-        <!--<div class="col-xl-12 pb-5 bg-light">
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-10">
-                    <div class='row'>
-                        <div class="col-12">
-                            <hr class="my-4">
-                        </div>
-                        <div class='col-md-7 align-self-center'>
-                            <div class='card bg-light border-light h-100 align-middle'>
-                                <div class='card-body'>
-                                    <h5 class='card-title'>Card title</h5>
-                                    <p class='card-text'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                </div>
-                                <div class="card-footer border-light bg-light">
-                                    <div class='d-flex justify-content-between align-items-center'>
-                                        <div class='btn-group'>
-                                            <button type='button' class='btn btn-sm btn-outline-primary' data-toggle='tooltip' data-placement='bottom' title='Abrir' onclick=''>
-                                            <span class='material-icons align-middle'>open_in_new</span>
-                                            </button>
-                                            <button type='button' class='btn btn-sm btn-outline-success' data-toggle='tooltip' data-placement='bottom' title='Editar' onclick=''>
-                                            <span class='material-icons align-middle'>edit</span>
-                                            </button>
-                                            <button type='button' class='btn btn-sm btn-outline-danger' data-toggle='modal' data-target='' $btnDelete>
-                                                <span class='material-icons align-middle' data-toggle='tooltip' data-placement='bottom' title='Eliminar'>delete</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='col-md-5 text-center align-self-center'>
-                            <img src="./../../img/petroleo.jpg" class="img-fluid" width="500" height="500">
-                        </div>
-                        <div class="col-12">
-                            <hr class="my-4">
-                        </div>
-                    </div>
-                    <div class='row'>
-                        <div class='col-md-7 align-self-center'>
-                            <div class='card bg-light border-light h-100 align-middle'>
-                                <div class='card-body'>
-                                    <h5 class='card-title'>Card title</h5>
-                                    <p class='card-text'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                                </div>
-                                <div class="card-footer border-light bg-light">
-                                    <div class='d-flex justify-content-between align-items-center'>
-                                        <div class='btn-group'>
-                                            <button type='button' class='btn btn-sm btn-outline-primary' data-toggle='tooltip' data-placement='bottom' title='Abrir' onclick=''>
-                                            <span class='material-icons align-middle'>open_in_new</span>
-                                            </button>
-                                            <button type='button' class='btn btn-sm btn-outline-success' data-toggle='tooltip' data-placement='bottom' title='Editar' onclick=''>
-                                            <span class='material-icons align-middle'>edit</span>
-                                            </button>
-                                            <button type='button' class='btn btn-sm btn-outline-danger' data-toggle='modal' data-target='' $btnDelete>
-                                                <span class='material-icons align-middle' data-toggle='tooltip' data-placement='bottom' title='Eliminar'>delete</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='col-md-5 text-center align-self-center'>
-                            <img src="./../../img/petroleo.jpg" class="img-fluid" width="500" height="500">
-                        </div>
-                        <div class="col-12">
-                            <hr class="my-4">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-1"></div>
-            </div>
-        </div>-->
         <?php
     } else header("Location: ./../../../index.php?tm=-1");
 } else $tm = 10;

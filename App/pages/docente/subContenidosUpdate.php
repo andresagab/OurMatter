@@ -44,7 +44,6 @@ if ($session) {
                         }
                         break;
                     case 'delete':
-                        print_r($_GET);
                         if (isset($id)){
                             $object = new Subtema('id', $id, null, null);
                             deleteFile('./../../img/docente/contenidos/subContenidos/', $object->getImg());

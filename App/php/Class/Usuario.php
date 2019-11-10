@@ -60,7 +60,7 @@ class Usuario
     public function setPassword($password)
     {
         if (strlen($password <= 32)) $this->password = md5($password);
-        $this->password = $password;
+        else $this->password = $password;
     }
 
     /**
@@ -136,4 +136,36 @@ class Usuario
         }
         return $valid;
     }
+
+    /**
+     * @version Esta función permite insertar datos de los campos usuario, contrasena y estado de la tabla usuario.
+     * @return bool False significa que la sentencia no fue ejecutada, True corresponde a que la sentencia fue
+     * ejecutada, esto no asegura que el registro haya sido actualizado.
+     */
+    public function add(){
+        $sql = "INSERT INTO usuario (usuario, contrasena, estado) VALUES ('{$this->usuario}', '{$this->password}', '{$this->estado}')";
+        return Conector::executeAUD($sql);
+    }
+
+    /**
+     * @version Esta función permite modificar datos de los campos usuario, contrasena y estado de la tabla
+     * usuario apartir del id del registro u objeto que ya ha sido cargadp previamente.
+     * @return bool False significa que la sentencia no fue ejecutada, True corresponde a que la sentencia fue
+     * ejecutada, esto no asegura que el registro haya sido actualizado.
+     */
+    public function update($pastUser){
+        $sql = "UPDATE usuario SET usuario = '{$this->usuario}', contrasena = '{$this->password}' WHERE usuario.usuario = '$pastUser'";
+        return Conector::executeAUD($sql);
+    }
+
+    /**
+     * @version Esta funcioón permite eliminar el registro que es filtrado por el id del objeto.
+     * @return bool False significa que la sentencia no fue ejecutada, True corresponde a que la sentencia fue
+     * ejecutada, esto no asegura que el registro haya sido actualizado.
+     */
+    public function delete(){
+        $sql = "DELETE FROM usuario WHERE usuario.usuario = '{$this->usuario}'";
+        return Conector::executeAUD($sql);
+    }
+
 }
