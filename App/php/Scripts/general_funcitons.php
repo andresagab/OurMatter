@@ -111,3 +111,29 @@ function getPageDocente($pageId){
     }
     return $pageName;
 }
+
+function getColorPredominant($sourceFile){
+    //$sourceFile = "imagen1.jpg";
+    $i = imagecreatefromjpeg($sourceFile);
+    $rTotal = 0;
+    $vTotal = 0;
+    $aTotal = 0;
+    $total = 0;
+    for ($x=0;$x<imagesx($i);$x++) {
+        for ($y=0;$y<imagesy($i);$y++) {
+            $rgb = imagecolorat($i,$x,$y);
+            $r   = ($rgb >> 16) & 0xFF;
+            $v   = ($rgb >> 8) & 0xFF;
+            $a   = $rgb & 0xFF;
+            $rTotal += $r;
+            $vTotal += $v;
+            $aTotal += $a;
+            $total++;
+        }
+    }
+    $rPromedio = round($rTotal/$total);
+    $vPromedio = round($vTotal/$total);
+    $aPromedio = round($aTotal/$total);
+    //echo "<img src='".$sourceFile."' width='400' />";
+    echo "<div style='display:block;height:50px;width:400px;background-color:rgb(".$rPromedio.",".$vPromedio.",".$aPromedio.")'>";
+}

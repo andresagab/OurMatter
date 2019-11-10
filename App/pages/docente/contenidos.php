@@ -20,7 +20,7 @@ if ($session) {
             $element = 0;
             $colorTittle = ['primary', 'success', 'warning'];
             $imgSrc = '';
-            $btnDelete = 'disabled';
+            $btnDelete = ['disabled', 'invisible'];
             for ($i = 0 ; $i < ceil($rows); $i++){
                 $list .= "<div class='col-xl-12 pl-5 pr-5'>
                             <div class='row'>";
@@ -28,7 +28,7 @@ if ($session) {
                     if ($element < count($data)){
                         $object = $data[$element];
                         //$object = new Tema($data[$i], null, null, null);
-                        if ($object->canDelete()) $btnDelete = '';
+                        if ($object->canDelete()) $btnDelete = ['', 'visible'];
                         $srcImg = "./../../img/not_image.jpg";
                         if (file_exists(dirname(__FILE__) . "./../../img/docente/contenidos/{$object->getImg()}")) $srcImg = "./../../img/docente/contenidos/{$object->getImg()}";
                         $list .= "
@@ -38,21 +38,20 @@ if ($session) {
                                     <div class='card mb-4 shadow-sm'>
                                         <img src='$srcImg' class='card-img-top' width='100%' height='225' alt='Responsive image'>
                                         <div class='card-body'>
-                                            <h4 class='card-title text-{$colorTittle[rand(0, 2)]} text-uppercase'>{$object->getNombre()}</h4>
+                                            <h4 class='card-title text-{$colorTittle[rand(0, 2)]} text-uppercase' style='cursor: pointer' onclick='openContenido({$object->getId()}, " .  '"' . md5('subContenidos.php') . '"' . ");'>{$object->getNombre()}</h4>
                                             <p class='card-text text-justify'>{$object->getDescripcion()}</p>
                                             <div class='d-flex justify-content-between align-items-center'>
                                                 <div class='btn-group'>
-                                                    <button type='button' class='btn btn-sm btn-outline-primary' data-toggle='tooltip' data-placement='bottom' title='Abrir'>
+                                                    <button type='button' class='btn btn-sm btn-outline-primary' data-toggle='tooltip' data-placement='bottom' title='Abrir' onclick='openContenido({$object->getId()}, " .  '"' . md5('subContenidos.php') . '"' . ");'>
                                                         <span class='material-icons align-middle'>open_in_new</span>
                                                     </button>
                                                     <button type='button' class='btn btn-sm btn-outline-success' data-toggle='tooltip' data-placement='bottom' title='Editar' onclick='openFrm({$object->getId()}, " . '"' . md5('contenidosFrm.php') . '"' . ");'>
                                                         <span class='material-icons align-middle'>edit</span>
                                                     </button>
-                                                    <button type='button' class='btn btn-sm btn-outline-danger' data-toggle='modal' data-target='#del_{$object->getId()}' $btnDelete>
+                                                    <button type='button' class='btn btn-sm btn-outline-danger <?= $btnDelete[1] ?>' data-toggle='modal' data-target='#del_{$object->getId()}' $btnDelete[0]>
                                                         <span class='material-icons align-middle' data-toggle='tooltip' data-placement='bottom' title='Eliminar'>delete</span>
                                                     </button>
                                                 </div>
-                                                <!--<small class='text-muted'>$j</small>-->
                                             </div>
                                         </div>
                                     </div>
@@ -63,13 +62,13 @@ if ($session) {
                                     <div class='modal-dialog modal-dialog-centered' role='document'>
                                         <div class='modal-content'>
                                             <div class='modal-header'>
-                                                <h5 class='modal-title' id='cardModalCenterTitle_{$object->getId()}'>ELIMINAR TEMA</h5>
+                                                <h5 class='modal-title' id='cardModalCenterTitle_{$object->getId()}'>ELIMINAR REGISTRO</h5>
                                                 <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
                                                     <span aria-hidden='true'>&times;</span>
                                                 </button>
                                             </div>
                                             <div class='modal-body'>
-                                            <p class='text-justify'>¿Esta seguro de eliminar el tema: <span class='text-uppercase'>{$object->getNombre()}?</p>
+                                            <p class='text-justify'>¿Esta seguro de eliminar el contenido: <span class='text-uppercase'>{$object->getNombre()}?</p>
                                             </div>
                                             <div class='modal-footer'>
                                                 <button type='button' class='btn btn-danger' data-dismiss='modal'>Cancelar</button>

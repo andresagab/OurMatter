@@ -11,8 +11,10 @@ if ($session){
                 case 3:$sourcePage = './estudiantes.php';break;
                 case 4:$sourcePage = './configuracion.php';break;
                 case 5:
-                    if (isset($_GET['fl'])) $sourcePage = './' . getPageDocente($_GET['fl']);
-                    else $sourcePage = './../404.php';
+                    if (isset($_GET['fl'])) {
+                        if (($route = getPageDocente($_GET['fl'])) != '') $sourcePage = "./$route";
+                        else $sourcePage = './../404.php';
+                    } else $sourcePage = './../404.php';
                     break;
                 default: $sourcePage = './../404.php';
             }
