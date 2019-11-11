@@ -16,6 +16,7 @@ if ($session) {
         require_once dirname(__FILE__) . './../../php/Class/Tema.php';
         require_once dirname(__FILE__) . './../../php/Class/Evaluacion.php';
         require_once dirname(__FILE__) . './../../php/Class/Evaluacion_Pregunta.php';
+        require_once dirname(__FILE__) . './../../php/Class/Evaluacion_Opcion.php';
 
         //Verificamos que hemos recibido el id del tema o contenido padre
         if (isset($_GET['idP'])) {
@@ -47,10 +48,81 @@ if ($session) {
                                 <div class='card bg-light border-light h-100 align-middle'>
                                     <div class='card-body'>
                                         <h3 class='card-title text-uppercase'>{$object->getPregunta()}</h3>
-                                        <h6 class='card-subtitle mb-2 text-muted'>Alternativas de respuesta</h6>
-                                        <!--AQUI VAN LAS OPCIONES DE RESPUESTA-->
+                                        <h6 class='card-subtitle mb-2 text-muted'>Alternativas de respuesta</h6>";
+                        /*--------------------------------------------------------------------------------------------*/
+                        /*OPCIONES RESPUESTA*/
+
+                        //Cargamos las opciones de respuesta de la pregunta que esta almacenada en $pbject
+                        $options = Evaluacion_Opcion::getObjects("id_evaluacionPregunta = {$object->getId()}", null);
+                        //Declaramos la alerta de que la pregunta aún no tiene registradas sus opciones de respuesta
+                        $alert = '<div class="mt-3 alert alert-warning">Sin opciones de respuesta, no olvides registrarlas!</div>';
+                        //Declaramos la variable que permite agregar o editar y borrar las opciones de respuesta
+                        //Por defecto definimos la opción agregar.
+                        $actions = "
+                        <div class='d-flex justify-content-between align-items-center'>
+                                <div class='btn-group'>
+                                    <button type='button' class='btn btn-sm btn-outline-primary' data-toggle='tooltip' data-placement='bottom' title='Agregar' onclick='openOpcionesFrm({$objectParent->getId()}, {$object->getId()}, " . '"' . md5('opcionesPreguntaFrm.php') . '"' . ");'>
+                                        <span class='material-icons align-middle'>add</span>
+                                    </button>
+                                </div>
+                            </div>";
+                        //Declaramos la variable que nos controla la acción de eliminar opciones de respuesta
+                        $btnDeleteOpciones = ['disabled', 'invisible'];
+                        //Evaluamos que hayan opciones registradas
+                        if (count($options) > 0 && count($options) <= 4) {
+                            $alert = '';
+                            if (Evaluacion_Opcion::canDeleteOptions($options)) $btnDeleteOpciones = ['', 'visible'];
+                            //Al tener ya las opciones registradas, remplazamos el botón agregaar por los de editar y eliminar
+                            $actions = "
+                            <div class='d-flex justify-content-between align-items-center'>
+                                <div class='btn-group'>
+                                    <button type='button' class='btn btn-sm btn-outline-info' data-toggle='tooltip' data-placement='bottom' title='Editar' onclick='openOpcionesFrm({$objectParent->getId()}, {$object->getId()}, " . '"' . md5('opcionesPreguntaFrm.php') . '"' . ");'>
+                                        <span class='material-icons align-middle'>edit</span>
+                                    </button>
+                                    <button type='button' class='btn btn-sm btn-outline-danger <?= $btnDeleteOpciones[1] ?>' data-toggle='modal' data-target='#del_opciones_{$object->getId()}' $btnDeleteOpciones[0]>
+                                        <span class='material-icons align-middle' data-toggle='tooltip' data-placement='bottom' title='Eliminar'>delete</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <!--DIALOG DELETE OPCIONES PREGUNTA_ID: {$object->getPregunta()}-->
+                            <div class='modal fade' id='del_opciones_{$object->getId()}' tabindex='-1' role='dialog' aria-labelledby='cardModalCenterTitle_{$object->getId()}' aria-hidden='true'>
+                                <div class='modal-dialog modal-dialog-centered' role='document'>
+                                    <div class='modal-content'>
+                                        <div class='modal-header'>
+                                            <h5 class='modal-title' id='cardModalCenterTitle_{$object->getId()}'>ELIMINAR REGISTROS</h5>
+                                            <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                                <span aria-hidden='true'>&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class='modal-body'>
+                                            <div class='alert alert-info'>Recuerde que si desea cambiar una o mas respuestas puede usar la opción de editar.</div>
+                                            <h6 class='text-break font-weight-normal'><span class='font-weight-bold'>Pregunta: </span>{$object->getPregunta()}</h6>
+                                            <hr class='my-4'>
+                                            <p class='text-justify'>¿Esta seguro de eliminar la todas las opciones de respuesta de esta pregunta?</p>
+                                        </div>
+                                        <div class='modal-footer'>
+                                            <button type='button' class='btn btn-danger' data-dismiss='modal'>Cancelar</button>
+                                            <button type='button' class='btn btn-success' onclick='deleteRecordsOpciones({$objectParent->getId()}, {$object->getId()});'>Eliminar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--END DIALOG DELETE OPCIONES PREGUNTA_ID: {$object->getPregunta()}-->
+                            ";
+                            for ($j = 0; $j < count($options); $j++) {
+                                $option = $options[$j];
+                                $list .= "
+                                <p class='card-text'><span class='font-weight-bold'>" . ($j + 1) . "). </span>{$option->getOpcion()}</p>
+                                ";
+                            }
+                        }
+                        /*END OPCIONES RESPUESTA*/
+                        /*--------------------------------------------------------------------------------------------*/
+                        $list .= $alert . "<p class='card-text'><small class='text-muted'>Acciones de respuestas:</small></p> $actions";
+                        $list .="
                                     </div>
                                     <div class='card-footer border-light bg-light'>
+                                        <p class='card-text'><small class='text-muted'>Acciones de pregunta:</small></p>
                                         <div class='d-flex justify-content-between align-items-center'>
                                             <div class='btn-group'>
                                                 <!--<button type='button' class='btn btn-sm btn-outline-primary' data-toggle='tooltip' data-placement='bottom' title='Abrir' onclick=''>

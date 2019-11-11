@@ -40,7 +40,7 @@ if ($session) {
                         break;
                 }
                 header("Location: ./home.php?pg=5&fl=". md5('preguntasEvaluacion.php') . "&idP={$idP}&tm=$tm");
-            } else header("Location: ./home.php?pg=1&tm=$tm");
-        } else header("Location: ./home.php?pg=1&tm=$tm");
+            } else header("Location: ./home.php?pg=2&tm=$tm");
+        } else header("Location: ./home.php?pg=2&tm=$tm");
     } else header("Location: ./../../../index.php?tm=-1");
 }
