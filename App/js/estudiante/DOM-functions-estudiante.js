@@ -3,9 +3,12 @@
 * Email: andresgeovanny@udenar.edu.co
 * */
 $(document).ready(function () {
+
+    spinnerLoad('#spinnerLoadHome', false);
+    exeTooltip();
+
     var heigth = $("body").height() - ($("#navbarMenu").height() + parseInt($("#navbarMenu").css("padding-top").toString().substring(0, $("#navbarMenu").css("padding-top").toString().indexOf("px", 0))));
     $("#containerFull").height(heigth - 9);
-    //$("#containerFull").load('./App/pages/publico/inicio.html');
 
     $("#btnLogOut").click(function () {
         logOut();
