@@ -124,7 +124,7 @@ class Subtema
      */
     public function getTema(){
         if ($this->id != null) return new Tema('id', $this->id, null, null);
-        else return new Tema(null. null, null, null);
+        else return new Tema(null. null, null, null, null);
     }
 
     /**

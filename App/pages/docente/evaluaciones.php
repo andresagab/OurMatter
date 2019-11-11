@@ -21,13 +21,11 @@ if ($session) {
         $list = '';
         //Comprobamos que hayan registros, de no haber ninguno establecemos el valor correspondiente a la variable toast
         if (count($data) > 0){
-            //Declaramos la variable que controla la desactivación del btnEliminar
-            $btnDelete = ['disabled', 'invisible'];
             $list = "
             <div class='col-xl-12 bg-light p-5 align-content-center'>
                 <div class='row align-self-center'>
-                    <div class='col-xl-2'></div>
-                    <div class='col-xl-8 align-self-center table-responsive-sm'>
+                    <div class='col-xl-1'></div>
+                    <div class='col-xl-10 align-self-center table-responsive'>
                         <table class='table table-hover'>
                             <thead>
                                 <tr>
@@ -37,13 +35,14 @@ if ($session) {
                                     <th scope='col'>Tema</th>
                                     <th scope='col'>Fecha inicio</th>
                                     <th scope='col'>Fecha fin</th>
-                                    <th scope='col'>Opciones</th>
+                                    <th scope='col' class='px-5'>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>";
             for ($i = 0; $i < count($data); $i++){
                 $object = $data[$i];
-                //Declaramos la ruta de la imagen del objeto cargado
+                //Declaramos la variable que controla la desactivación del btnEliminar
+                $btnDelete = ['disabled', 'invisible'];
                 if ($object->canDelete()) $btnDelete = ['', 'visible'];
                 $list .= "
                                 <tr>
@@ -53,12 +52,15 @@ if ($session) {
                                     <td>{$object->getTema()->getNombre()}</td>
                                     <td>{$object->getFechaInicio()}</td>
                                     <td>{$object->getFechaFin()}</td>
-                                    <td>
+                                    <td class='text-center'>
+                                        <a data-toggle='tooltip' data-placement='bottom' title='Abrir' onclick='openEvaluacion({$object->getId()}, " . '"' . md5('preguntasEvaluacion.php') . '"' . ");'>
+                                            <span class='material-icons text-primary' style='cursor: pointer;'>open_in_new</span>
+                                        </a>
                                         <a data-toggle='tooltip' data-placement='bottom' title='Editar' onclick='openFrm({$object->getId()}, " . '"' . md5('evaluacionesFrm.php') . '"' . ");'>
                                             <span class='material-icons text-success' style='cursor: pointer;'>edit</span>
                                         </a>
-                                        <a data-toggle='tooltip' data-placement='bottom' title='Eliminar'>
-                                            <span class='material-icons text-danger' style='cursor: pointer;' data-toggle='modal' data-target='#del_{$object->getId()}'>delete</span>
+                                        <a class='{$btnDelete[1]}' data-toggle='tooltip' data-placement='bottom' title='Eliminar' {$btnDelete[0]}>
+                                            <span class='material-icons text-danger {$btnDelete[1]}' style='cursor: pointer;' data-toggle='modal' data-target='#del_{$object->getId()}'>delete</span>
                                         </a>
                                     </td>
                                 </tr>
@@ -89,7 +91,7 @@ if ($session) {
                             </tbody>
                         </table>
                     </div>
-                    <div class='col-xl-2'></div>
+                    <div class='col-xl-1'></div>
                 </div>
             </div>";
         } else $tm = 16;
