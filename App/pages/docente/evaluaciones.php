@@ -1,6 +1,6 @@
 <?php
 /**
- * @Page estudiantes.php
+ * @Page evaluaciones.php
  * @Autor Anres Geovanny Angulo Botina
  * @email andrescabj981@gmail.com
  * $tm = 0 : No hay errores o informes.
@@ -13,10 +13,11 @@ if ($session) {
     if (strtolower(@$USUARIO['typeUser']) == 'docente') {
         include_once dirname(__FILE__) . './../../php/Scripts/general_funcitons.php';
         require_once dirname(__FILE__) . './../../php/Class/Conector.php';
-        require_once dirname(__FILE__) . './../../php/Class/Estudiante.php';
+        require_once dirname(__FILE__) . './../../php/Class/Tema.php';
+        require_once dirname(__FILE__) . './../../php/Class/Evaluacion.php';
 
         //Cargamos todos los registros
-        $data = Estudiante::getObjects(null, 'order by apellidos asc');
+        $data = Evaluacion::getObjects(null, 'order by fechafin desc');
         $list = '';
         //Comprobamos que hayan registros, de no haber ninguno establecemos el valor correspondiente a la variable toast
         if (count($data) > 0){
@@ -31,9 +32,11 @@ if ($session) {
                             <thead>
                                 <tr>
                                     <th scope='col'>#</th>
-                                    <th scope='col'>Apellidos</th>
-                                    <th scope='col'>Nombres</th>
-                                    <th scope='col'>Usuario</th>
+                                    <th scope='col'>Evaluacion</th>
+                                    <th scope='col'>Descripción</th>
+                                    <th scope='col'>Tema</th>
+                                    <th scope='col'>Fecha inicio</th>
+                                    <th scope='col'>Fecha fin</th>
                                     <th scope='col'>Opciones</th>
                                 </tr>
                             </thead>
@@ -45,11 +48,13 @@ if ($session) {
                 $list .= "
                                 <tr>
                                     <th scope='row'>" . ($i + 1) . "</th>
-                                    <td>{$object->getApellidos()}</td>
-                                    <td>{$object->getNombres()}</td>
-                                    <td>{$object->getUsuario()}</td>
+                                    <td>{$object->getNombre()}</td>
+                                    <td>{$object->getDescripcion()}</td>
+                                    <td>{$object->getTema()->getNombre()}</td>
+                                    <td>{$object->getFechaInicio()}</td>
+                                    <td>{$object->getFechaFin()}</td>
                                     <td>
-                                        <a data-toggle='tooltip' data-placement='bottom' title='Editar' onclick='openFrm({$object->getId()}, " . '"' . md5('estudiantesFrm.php') . '"' . ");'>
+                                        <a data-toggle='tooltip' data-placement='bottom' title='Editar' onclick='openFrm({$object->getId()}, " . '"' . md5('evaluacionesFrm.php') . '"' . ");'>
                                             <span class='material-icons text-success' style='cursor: pointer;'>edit</span>
                                         </a>
                                         <a data-toggle='tooltip' data-placement='bottom' title='Eliminar'>
@@ -57,7 +62,7 @@ if ($session) {
                                         </a>
                                     </td>
                                 </tr>
-                                <!--DIALOG DELETE REGISTRO ID: {$object->getNombres()}-->
+                                <!--DIALOG DELETE REGISTRO ID: {$object->getNombre()}-->
                                 <div class='modal fade' id='del_{$object->getId()}' tabindex='-1' role='dialog' aria-labelledby='cardModalCenterTitle_{$object->getId()}' aria-hidden='true'>
                                     <div class='modal-dialog modal-dialog-centered' role='document'>
                                         <div class='modal-content'>
@@ -68,7 +73,7 @@ if ($session) {
                                                 </button>
                                             </div>
                                             <div class='modal-body'>
-                                            <p class='text-justify'>¿Esta seguro de eliminar el estudiante: <span class='text-uppercase font-weight-bold'>{$object->getNombres()} {$object->getApellidos()}</span>?</p>
+                                            <p class='text-justify'>¿Esta seguro de eliminar la evaluación: <span class='text-uppercase font-weight-bold'>{$object->getNombre()}</span>?</p>
                                             </div>
                                             <div class='modal-footer'>
                                                 <button type='button' class='btn btn-danger' data-dismiss='modal'>Cancelar</button>
@@ -77,7 +82,7 @@ if ($session) {
                                         </div>
                                     </div>
                                 </div>
-                                <!--END DIALOG DELETE REGISTRO ID: {$object->getNombres()}-->
+                                <!--END DIALOG DELETE REGISTRO ID: {$object->getNombre()}-->
                 ";
             }
             $list .= "
@@ -89,17 +94,17 @@ if ($session) {
             </div>";
         } else $tm = 16;
         ?>
-        <script src="./../../js/docente/estudiantes.js"></script>
+        <script src="./../../js/docente/evaluaciones.js"></script>
         <div class="col-xl-12 h-100 bg-light mt-2 p-0">
             <!--ESTUDIANTES HEADER-->
             <div class="col-xl-12 p-5 bg-secondary text-light">
                 <div class="row text-center">
                     <div class="col-xl-2"></div>
                     <div class="col-xl-8 align-self-center">
-                        <h5 class="display-4 text-uppercase text-center">ESTUDIANTES</h5>
+                        <h5 class="display-4 text-uppercase text-center">EVALUACIONES</h5>
                     </div>
                     <div class="col-xl-2 align-self-center">
-                        <button class="btn btn-outline-light text-center" id="btnAddContenidos" onclick="openFrm(null, '<?= md5('estudiantesFrm.php') ?>');">
+                        <button class="btn btn-outline-light text-center" id="btnAddContenidos" onclick="openFrm(null, '<?= md5('evaluacionesFrm.php') ?>');">
                             <span class="">Agregar <i class="material-icons align-middle">add</i></span>
                         </button>
                     </div>

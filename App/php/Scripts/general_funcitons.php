@@ -137,3 +137,38 @@ function getColorPredominant($sourceFile){
     //echo "<img src='".$sourceFile."' width='400' />";
     echo "<div style='display:block;height:50px;width:400px;background-color:rgb(".$rPromedio.",".$vPromedio.",".$aPromedio.")'>";
 }
+
+/**
+ * @param $table nombre de la tabla que se desea consultar
+ * @param $fieldShow nombre del campo que se presentara como option
+ * @param $fieldValue valor del option
+ * @param $filter filtro para la cadena sql
+ * @param $order ordem para la cadena sql
+ * @param $nameSelect nombre del elemento select (name, id)
+ * @param $predetermined valor predeterminado
+ * @return string Cadena con el select compuesto por los registros encontrados en la base de datos.
+ */
+function getDataInSelectHTML($table, $fieldShow, $fieldValue, $filter, $order, $nameSelect, $predetermined){
+    $html = "<select class='custom-select' id='$nameSelect' name='$nameSelect' required>";
+    $sql = "SELECT $fieldShow, $fieldValue FROM $table $filter $order";
+    if (is_array($result = Conector::ejecutarQuery($sql, null))) {
+        if (count($result) > 0) {
+            for ($i = 0; $i < count($result); $i++) {
+                if ($predetermined == $result[$i][$fieldValue]) $html .= "<option value='{$result[$i]["$fieldValue"]}' selected>{$result[$i]["$fieldShow"]}</option>";
+                else $html .= "<option value='{$result[$i]["$fieldValue"]}'>{$result[$i]["$fieldShow"]}</option>";
+            }
+        }
+    }
+    $html .= "</select>";
+    return $html;
+}
+
+/**
+ * @param $valDate String Fecha y hora de tipo input datetime-local
+ * @return string Fecha y hora para ser usado en objetos Date o para ser insertado en regisro SQL
+ */
+function getDateOfInput($valDate) {
+    $date = substr($valDate, 0, 10);
+    $time = substr($valDate, 11, 5);
+    return "$date $time";
+}

@@ -66,10 +66,10 @@ CREATE TABLE recurso(
 CREATE TABLE evaluacion(
     id int AUTO_INCREMENT PRIMARY KEY,
     id_tema int not null,
-    nombre varchar(100),
+    nombre varchar(100) not null,
     descripcion varchar(300),
-    fechaInicio datetime,
-    fechaFin datetime,
+    fechaInicio datetime not null,
+    fechaFin datetime not null,
     INDEX (id_tema),
     FOREIGN KEY (id_tema) REFERENCES tema(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );

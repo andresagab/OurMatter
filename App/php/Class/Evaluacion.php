@@ -1,21 +1,22 @@
 <?php
 /**
- * @Class Subtema
+ * @Class Evaluacion
  * @Autor Andres Geovanny Angulo Botina
  * @email andrescabj981@gmail.com
  */
 
-class Subtema
+class Evaluacion
 {
 
     private $id;
     private $idTema;
     private $nombre;
-    private $contenido;
-    private $img;
+    private $descripcion;
+    private $fechaInicio;
+    private $fechaFin;
 
     /**
-     * Subtema constructor.
+     * Evaluacion constructor.
      * @param $field : String con el campo a consulta o Array (vector) con todos los campos de la clase
      * @param $value : Valor del campo a consultar
      * @param $filter : String sql con el filtro adicional que se deseá (incluir campo AND u OR)
@@ -29,7 +30,7 @@ class Subtema
         }
         else {
             if ($value != null){
-                $sql = "SELECT id, id_tema, nombre, contenido, img FROM sub_tema WHERE $field=$value $filter $order";
+                $sql = "SELECT id, id_tema, nombre, descripcion, fechaInicio, fechaFin FROM evaluacion WHERE $field=$value $filter $order";
                 $result = Conector::ejecutarQuery($sql, null);
                 if (count($result) > 0) {
                     foreach ($result[0] as $item => $val) $this->$item = $val;
@@ -90,40 +91,56 @@ class Subtema
     /**
      * @return mixed
      */
-    public function getContenido()
+    public function getDescripcion()
     {
-        return $this->contenido;
+        return $this->descripcion;
     }
 
     /**
-     * @param mixed $contenido
+     * @param mixed $descripcion
      */
-    public function setContenido($contenido)
+    public function setDescripcion($descripcion)
     {
-        $this->contenido = $contenido;
+        $this->descripcion = $descripcion;
     }
 
     /**
      * @return mixed
      */
-    public function getImg()
+    public function getFechaInicio()
     {
-        return $this->img;
+        return $this->fechaInicio;
     }
 
     /**
-     * @param mixed $img
+     * @param mixed $fechaInicio
      */
-    public function setImg($img)
+    public function setFechaInicio($fechaInicio)
     {
-        $this->img = $img;
+        $this->fechaInicio = $fechaInicio;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFechaFin()
+    {
+        return $this->fechaFin;
+    }
+
+    /**
+     * @param mixed $fechaFin
+     */
+    public function setFechaFin($fechaFin)
+    {
+        $this->fechaFin = $fechaFin;
     }
 
     /**
      * @return Tema objeto de la clase tema
      */
     public function getTema(){
-        if ($this->id != null) return new Tema('id', $this->id, null, null);
+        if ($this->idTema != null) return new Tema('id', $this->idTema, null, null);
         else return new Tema(null. null, null, null);
     }
 
@@ -146,7 +163,7 @@ class Subtema
         $data["status"] = false;
         $data["data"] = array();
         $filter = validFilterSQL($filter);
-        $sql = "SELECT id, id_tema, nombre, contenido, img FROM sub_tema $filter $order";
+        $sql = "SELECT id, id_tema, nombre, descripcion, fechaInicio, fechaFin FROM evaluacion $filter $order";
         if (is_array($result = Conector::ejecutarQuery($sql, null))) {
             $data["status"] = true;
             $data["data"] = $result;
@@ -160,9 +177,9 @@ class Subtema
      * @return array : Vector que contiene los registros en tipo de objeto 'Sitio'
      */
     public static function getObjects($filter, $order){
-        $data = Subtema::getList($filter, $order)['data'];
+        $data = Evaluacion::getList($filter, $order)['data'];
         $objects = array();
-        for ($i = 0; $i < count($data); $i++) $objects[$i] = new Subtema($data[$i], null, null, null);
+        for ($i = 0; $i < count($data); $i++) $objects[$i] = new Evaluacion($data[$i], null, null, null);
         return $objects;
     }
 
@@ -173,7 +190,7 @@ class Subtema
     public function canDelete(){
         $status = true;
         if ($this->getId() != null) {
-            $sql = "select count(id) as quantity from recurso where id_subtema = {$this->getId()}";
+            $sql = "select count(id) as quantity from evaluacion_pregunta where id_evaluacion = {$this->getId()}";
             if (is_array($result = Conector::ejecutarQuery($sql, null))) {
                 if (count($result) > 0) {
                     if (isset($result[0]['quantity']))
@@ -185,23 +202,23 @@ class Subtema
     }
 
     /**
-     * @version Esta función permite insertar datos de los campos id_tema, nombre, contenido e img de la tabla sub_tema.
+     * @version Esta función permite insertar datos de los campos id_tema, nombre, descripcion, fechaInicio y fechaFin de la tabla evaluacion.
      * @return bool False significa que la sentencia no fue ejecutada, True corresponde a que la sentencia fue
      * ejecutada, esto no asegura que el registro haya sido actualizado.
      */
     public function add(){
-        $sql = "INSERT INTO sub_tema (id_tema, nombre, contenido, img) VALUES ({$this->idTema}, '{$this->nombre}', '{$this->contenido}', '{$this->img}')";
+        $sql = "INSERT INTO evaluacion (id_tema, nombre, descripcion, fechaInicio, fechaFin) VALUES ({$this->idTema}, '{$this->nombre}', '{$this->descripcion}', '{$this->fechaInicio}', '{$this->fechaFin}')";
         return Conector::executeAUD($sql);
     }
 
     /**
-     * @version Esta función permite modificar datos de los campos id_tema, nombre, contenido e img de la tabla
-     * sub_tema. apartir del id del registro u objeto que ya ha sido cargadp previamente.
+     * @version Esta función permite modificar datos de los campos id_tema, nombre, descripcion, fechaInicio y fechaFin de la tabla
+     * evaluacion. apartir del id del registro u objeto que ya ha sido cargadp previamente.
      * @return bool False significa que la sentencia no fue ejecutada, True corresponde a que la sentencia fue
      * ejecutada, esto no asegura que el registro haya sido actualizado.
      */
     public function update(){
-        $sql = "UPDATE sub_tema SET id_tema = {$this->idTema}, nombre = '{$this->nombre}', contenido = '{$this->contenido}', img = '{$this->img}' WHERE id = {$this->id}";
+        $sql = "UPDATE evaluacion SET id_tema = {$this->idTema}, nombre = '{$this->nombre}', descripcion = '{$this->descripcion}', fechaInicio = '{$this->fechaInicio}', fechaFin = '{$this->fechaFin}' WHERE id = {$this->id}";
         return Conector::executeAUD($sql);
     }
 
@@ -211,7 +228,7 @@ class Subtema
      * ejecutada, esto no asegura que el registro haya sido actualizado.
      */
     public function delete(){
-        $sql = "DELETE FROM sub_tema WHERE id = '{$this->id}'";
+        $sql = "DELETE FROM evaluacion WHERE id = '{$this->id}'";
         return Conector::executeAUD($sql);
     }
 
