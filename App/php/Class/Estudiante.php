@@ -182,4 +182,27 @@ class Estudiante
         $sql = "DELETE FROM estudiante WHERE id = '{$this->id}'";
         return Conector::executeAUD($sql);
     }
+
+    /**
+     * @version Métodos que permiter obtener las evaluaciones pendientes del estudiante
+     * @return array - Arreglo vacio o con objetos de la clase Evaluacion
+     */
+    public function getEvaluacionesPendientes() {
+        $objects = array();
+        if ($this->id != null) {
+            $sql = "select ev.id, ev.id_tema, ev.nombre, ev.descripcion, ev.fechaInicio, ev.fechaFin
+                    from
+                         evaluacion ev inner join evaluacion_pregunta ep on ev.id = ep.id_evaluacion
+                             inner join evaluacion_opcion eo ON eo.id_evaluacionPregunta = ep.id
+                             inner join evaluacion_respuesta er ON er.id_evaluacionOpcion = eo.id
+                             inner join estudiante e on er.id_estudiante = e.id WHERE e.id = {$this->id} ORDER BY ev.fechaFin DESC";
+            if (is_array(($result = Conector::ejecutarQuery($sql, null)))) {
+                for ($i = 0; $i < count($result); $i++) {
+                    if (isset($result[$i]['id'])) $objects[$i] = new Evaluacion($result[$i], null, null, null);
+                }
+            }
+        }
+        return $objects;
+    }
+
 }

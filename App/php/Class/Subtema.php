@@ -123,7 +123,7 @@ class Subtema
      * @return Tema objeto de la clase tema
      */
     public function getTema(){
-        if ($this->id != null) return new Tema('id', $this->id, null, null);
+        if ($this->id != null) return new Tema('id', $this->idTema, null, null);
         else return new Tema(null. null, null, null, null);
     }
 

@@ -13,6 +13,10 @@ $(document).ready(function () {
     $("#btnLogOut").click(function () {
         logOut();
     });
+
+    if (document.getElementById('autoLogout') != null)
+        if (document.getElementById('autoLogout').value === 't') logOut();
+
 });
 
 $(window).resize(function () {
