@@ -15,7 +15,7 @@ if ($session){
                 case 2:$sourcePage = './evaluaciones.php';break;
                 case 3:
                     if (isset($_GET['fl'])) {
-                        if (($route = getPageDocente($_GET['fl'])) != '') $sourcePage = "./$route";
+                        if (($route = getPageEstudiante($_GET['fl'])) != '') $sourcePage = "./$route";
                         else $sourcePage = './../404.php';
                     } else $sourcePage = './../404.php';
                     break;

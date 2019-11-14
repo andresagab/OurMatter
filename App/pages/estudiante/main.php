@@ -1,5 +1,8 @@
 <?php
-/*
+/**
+ * @version Codigo correspondiente a la página main o principal del rol estudiante
+ * @author Andres Geovanny Angulo Botina
+ * @email andrescabj981@gmail.com
  * $tm = 0 : No hay errores.
  * $tm = 1 : No existe la variable correspondiente a la sesión del usuario, no se puede cargar la página solicitada.
  * */
@@ -22,7 +25,7 @@ if ($session){
             if (isset($_GET['mb'])) $welcomeMesssaje = "
             <h5 class='display-4 text-uppercase text-center text-break'>HOLA {$estudiante->getNombres()}</h5>
             <h1 class='text-center font-weight-normal'><small>NOVEDADES</small></h1>";
-            
+
             //Cargo el ultimo subtema agregado a la base de datos
             $subTema = Subtema::getObjects(null, 'order by id desc limit 1');
             $tema = new Tema(null, null, null, null);
@@ -67,6 +70,7 @@ if ($session){
         } else $autoLogout = '<input type="hidden" id="autoLogout" value="t">';
         ?>
         <!--CONTENT PAGE-->
+        <script src="./../../js/estudiante/main.js"></script>
         <div class="col-xl-12 bg-light mt-2 p-0">
             <div class="col-xl-12 p-5 bg-secondary text-light">
                 <div class="row text-center">
@@ -91,14 +95,14 @@ if ($session){
                         <div class='col-md-12 align-self-center' <?= $sectionLastSubTema; ?>>
                             <div class='card bg-transparent border-light h-100 align-middle'>
                                 <div class='card-body'>
-                                    <h3 class='card-title text-uppercase text-break text-primary'><?= $subTema->getNombre(); ?></h3>
-                                    <h5 class='card-subtitle text-uppercase text-break text-muted py-2'><?= $tema->getNombre(); ?></h5>
+                                    <h3 class='card-title text-uppercase text-break text-<?= getRandomColorText('0', '2'); ?>' onclick='openRouteWithData(<?= $subTema->getId(); ?>, "<?= md5('subContenido.php') ?>");' style="cursor: pointer;"><?= $subTema->getNombre(); ?></h3>
+                                    <h5 class='card-subtitle text-uppercase text-break text-muted py-2' onclick='openRouteWithData(<?= $tema->getId(); ?>, "<?= md5('contenido.php') ?>");' style="cursor: pointer;"><?= $tema->getNombre(); ?></h5>
                                     <p class='card-text'><?= $subTema->getContenido(); ?></p>
                                 </div>
                                 <div class='card-footer border-light bg-light'>
                                     <div class='d-flex justify-content-between align-items-center'>
                                         <div class='btn-group'>
-                                            <button type='button' class='btn btn-sm btn-outline-primary' data-toggle='tooltip' data-placement='bottom' title='Abrir' onclick=''>
+                                            <button type='button' class='btn btn-sm btn-outline-primary' data-toggle='tooltip' data-placement='bottom' title='Abrir' onclick='openRouteWithData(<?= $subTema->getId(); ?>, "<?= md5('subContenido.php') ?>");'>
                                                 <span class='material-icons align-middle'>open_in_new</span>
                                             </button>
                                         </div>

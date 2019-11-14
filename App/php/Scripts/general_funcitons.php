@@ -112,6 +112,29 @@ function getPageDocente($pageId){
     return $pageName;
 }
 
+/**
+ * @version Este método nos retorna el nombre de la página que es pasada como parametro y esta en md5()
+ * @param $pageId String Md5 : Nombre de la página encriptada con md5()
+ * @return string Nombre de la página correspondiente al $pageId, si el valor retornado es nulo la página no pertenece
+ * a este rol.
+ */
+function getPageEstudiante($pageId){
+    $pageName = '';
+    if (is_dir(dirname(__FILE__) . './../../pages/estudiante/')){
+        $dir = opendir(dirname(__FILE__) . './../../pages/estudiante/');
+        while ($file = readdir($dir)) {
+            if (is_file($file))
+            {
+                if ($pageId == md5($file)){
+                    $pageName = $file;
+                    break;
+                }
+            }
+        }
+    }
+    return $pageName;
+}
+
 function getColorPredominant($sourceFile){
     //$sourceFile = "imagen1.jpg";
     $i = imagecreatefromjpeg($sourceFile);
@@ -171,4 +194,26 @@ function getDateOfInput($valDate) {
     $date = substr($valDate, 0, 10);
     $time = substr($valDate, 11, 5);
     return "$date $time";
+}
+
+/**
+ * @version Método que retorna un nombre de color aleatorio de bootstrap:
+ * 0 = primary
+ * 1 = success
+ * 2 = warning
+ * 3 = info
+ * 4 = danger
+ * 5 = secondary
+ * 6 = dark
+ * @param $min Valor minimo del color
+ * @param $max Valor maximo del color
+ * @return mixed|string Nombre del color para bootstrap text-{color}
+ */
+function getRandomColorText($min, $max) {
+    $color = '';
+    if ($min != null && $max != null) {
+        $colors = ['primary', 'success', 'warning', 'info', 'danger', 'secondary', 'dark'];
+        $color = $colors[rand((Int) $min, (Int) $max)];
+    }
+    return $color;
 }
