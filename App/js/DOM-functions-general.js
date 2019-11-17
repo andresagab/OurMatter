@@ -238,3 +238,22 @@ function viewPhoto(idImgElement, inputFile, sourceNotImage) {
         if (inputFileValid(inputFile)) $(idImgElement).attr('src', URL.createObjectURL(inputFile.files[0]));
     else $(idImgElement).attr('src', sourceNotImage);
 }
+
+/**
+ * @description Método que permite ver la contraseña de un input type password
+ * @param inputId {string} Valor del id del input con type password
+ * @param spanBtnId {string} Valor del id del span con el icono que se desea cambiar al mostrar u ocultar la contraseña, este debe ser usado con material-icons
+ */
+function viewPassword(inputId, spanBtnId) {
+    if (document.getElementById(inputId) != null && document.getElementById(spanBtnId) != null) {
+        materialicon = $('#' + spanBtnId).text();
+        console.log(materialicon);
+        if (materialicon === 'visibility_off') {
+            $('#' + inputId).attr('type', 'text');
+            $('#' + spanBtnId).text('visibility');
+        } else {
+            $('#' + inputId).attr('type', 'password');
+            $('#' + spanBtnId).text('visibility_off');
+        }
+    }
+}

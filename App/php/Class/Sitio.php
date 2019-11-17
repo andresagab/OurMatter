@@ -76,7 +76,7 @@ class Sitio extends Usuario
      */
     public function getNameMateria()
     {
-        return $this->name_materia;
+        return trim($this->name_materia);
     }
 
     /**

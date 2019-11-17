@@ -44,6 +44,9 @@ if ($session) {
                 //Declaramos la variable que controla la desactivación del btnEliminar
                 $btnDelete = ['disabled', 'invisible'];
                 if ($object->canDelete()) $btnDelete = ['', 'visible'];
+                //Generamos el botón que permite visualizar a los estudiantes que han resuelto la evaluación
+                $btnEstudiantes = '';
+                if ($object->studentsAnswered()) $btnEstudiantes = "<a data-toggle='tooltip' data-placement='bottom' title='Ver estudiantes' onclick='openEvaluacionEstudiantes({$object->getId()}, " . '"' . md5('evaluacionEstudiantes.php') . '"' . ");'><span class='material-icons text-warning' style='cursor: pointer;'>supervisor_account</span></a>";
                 $list .= "
                                 <tr>
                                     <th scope='row'>" . ($i + 1) . "</th>
@@ -59,6 +62,7 @@ if ($session) {
                                         <a data-toggle='tooltip' data-placement='bottom' title='Editar' onclick='openFrm({$object->getId()}, " . '"' . md5('evaluacionesFrm.php') . '"' . ");'>
                                             <span class='material-icons text-success' style='cursor: pointer;'>edit</span>
                                         </a>
+                                        $btnEstudiantes
                                         <a class='{$btnDelete[1]}' data-toggle='tooltip' data-placement='bottom' title='Eliminar' {$btnDelete[0]}>
                                             <span class='material-icons text-danger {$btnDelete[1]}' style='cursor: pointer;' data-toggle='modal' data-target='#del_{$object->getId()}'>delete</span>
                                         </a>

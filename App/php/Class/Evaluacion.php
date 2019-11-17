@@ -297,4 +297,18 @@ class Evaluacion
         }
     }
 
+    public function studentsAnswered(){
+        $status = false;
+        if ($this->id != null) {
+            $sql = "SELECT count(id) as quantity FROM evaluacion_ejecucion WHERE id_evaluacion = {$this->id}";
+            if (is_array($result = Conector::ejecutarQuery($sql, null))) {
+                if (count($result) > 0) {
+                    if (isset($result[0]['quantity']))
+                        if ((int) $result[0]['quantity'] > 0) $status = true;
+                }
+            }
+        }
+        return $status;
+    }
+
 }

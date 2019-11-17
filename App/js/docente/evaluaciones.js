@@ -20,6 +20,15 @@ function openFrm(id, file) {
 };
 
 /**
+ * @description Esta método abre la página correspondiente al listado de estudiantes que desarrollaron la evaluación.
+ * @param id Valor correspondiente a la llave de la evaluación
+ * @param {String} file Nombre del archivo quie se desea abrir mas su extensión.
+ */
+function openEvaluacionEstudiantes(id, file) {
+    location.href = location.origin + location.pathname + '?pg=5&fl=' + file + '&id=' + id;
+};
+
+/**
  * @description Método para abrir el archivo que ejecuta el borrado de un registro pasado por el id
  * @param id Valor de la clave correspondiente al registro que se envia.
  */

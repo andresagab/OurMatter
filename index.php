@@ -22,6 +22,7 @@ $toast = "<input type='hidden' id='toastAction' name='toastAction' value='$tm'>"
         <link rel="stylesheet" href="App/css/ourMatter.css">
         <script src="App/js/jquery-3.4.1.min.js"></script>
         <script src="App/js/publico/DOM-functions-publico.js"></script>
+        <script src="App/js/DOM-functions-general.js"></script>
         <script src="App/js/login.js"></script>
         <script src="App/frameworks/Bootstrap/js/bootstrap.min.js"></script>
         <script src="App/frameworks/Bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -83,8 +84,13 @@ $toast = "<input type='hidden' id='toastAction' name='toastAction' value='$tm'>"
                             </div>
                             <div class="form-group">
                                 <label for="txtPassword">Contraseña:</label>
-                                <input type="password" class="form-control" id="txtPassword" name="txtPassword"
-                                       required>
+                                <div class="input-group mb-3">
+                                    <!--<input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">-->
+                                    <input type="password" class="form-control" id="txtPassword" name="txtPassword" required>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary btn-sm" type="button" id="btnViewPassword" data-toggle="tooltip" title="Ver contraseña" onclick="viewPassword('txtPassword', 'btnSpanViewPassword')"><span class="material-icons align-middle" id="btnSpanViewPassword">visibility_off</span></button>
+                                    </div>
+                                </div>
                                 <div class="invalid-feedback">Debes ingresar tu contraseña</div>
                             </div>
                         </div>

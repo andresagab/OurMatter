@@ -18,6 +18,15 @@ if ($session){
                     break;
                 default: $sourcePage = './../404.php';
             }
+
+            //Cargamos las clases necesarias
+            require_once dirname(__FILE__) . '.\..\..\php\Class\Conector.php';
+            require_once dirname(__FILE__) . '.\..\..\php\Class\Usuario.php';
+            require_once dirname(__FILE__) . '.\..\..\php\Class\Sitio.php';
+            //Cargamos las configuraciones del sitio
+            $sitio = new Sitio('id', 1, null, null);
+            if ($sitio->getNameMateria() == '' || $sitio->getNameMateria() == null) $sitio->setNameMateria('OurMatter');
+
         } else $sourcePage = './../404.php';
         ?>
         <!DOCTYPE html>
@@ -37,9 +46,11 @@ if ($session){
             </head>
             <body class="bg-dark">
             <!--MENU-->
-            <nav id="navbarMenu" class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
-                <a id="btnHome" class="navbar-brand active" data-toggle="tooltip" data-placement="bottom" title="Química - Inicio" href="home.php?pg=0">
-                    <img src="../../img/Q.png" width="30px" height="30px" class="d-inline-block bg-dark" alt="">
+            <nav id="navbarMenu" class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark" style="z-index: 1100;">
+                <a id="btnHome" class="navbar-brand active" style="cursor: pointer;" data-toggle="tooltip" data-placement="bottom" title="<?= $sitio->getNameMateria() ?> - Inicio" href="home.php?pg=0">
+                    <div class="align-middle align-self-center text-uppercase text-light">
+                        <?= $sitio->getNameMateria(); ?>
+                    </div>
                 </a>
                 <button id="btnToggleMenu" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#optionsNavBar" aria-controls="optionsNavBar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -66,9 +77,14 @@ if ($session){
                                 Configuración
                             </a>
                         </li>
-                        <li class="nav-item" id="btnLogOut">
+                        <li class="nav-item" id="btnConfiguracionPassword" >
+                            <a class="nav-link" href="home.php?pg=6" data-toggle="tooltip" data-placemente="bottom" title="Cambiar contraseña">
+                                <span class="material-icons">account_circle</span>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="btnLogOut" data-toggle="tooltip" data-placemente="bottom" title="Cerrar sesión">
                             <a class="nav-link" href="#">
-                                Cerrar sesión
+                                <span class="material-icons">exit_to_app</span>
                             </a>
                         </li>
                     </ul>
@@ -94,7 +110,7 @@ if ($session){
             </div>
             <!--END CONTENT-->
             <!--TOAS MJS-->
-            <div class="toast position-fixed" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000" style="position: absolute; top: 15px; left: 15px; z-index: 1100;">
+            <div class="toast position-fixed" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3500" style="position: absolute; top: 45px; right: 15px; z-index: 1100;">
                     <div class="toast-header">
                         <!--<img src="App/img/Q.png" class="rounded mr-2">-->
                         <strong class="mr-auto">OurMatter</strong>
