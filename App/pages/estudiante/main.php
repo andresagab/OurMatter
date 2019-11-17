@@ -47,7 +47,7 @@ if ($session){
             //Cargamos las evaluaciones pendientes del estudiante
             $evaluaciones = $estudiante->getEvaluacionesPendientes();
             $listEvaluaciones = '';
-            if (count($evaluaciones) == 0) $listEvaluaciones .= '<tr><th scope="row" colspan="6">No tienes evaluaciones pendientes.</th></tr>';
+            if (count($evaluaciones) == 0) $listEvaluaciones .= '<tr><th scope="row" colspan="5">No tienes evaluaciones pendientes.</th></tr>';
             else {
                 for ($i = 0; $i < count($evaluaciones); $i++) {
                     $object = $evaluaciones[$i];
@@ -58,11 +58,11 @@ if ($session){
                                         <td>{$object->getTema()->getNombre()}</td>
                                         <td>{$object->getFechaInicio()}</td>
                                         <td>{$object->getFechaFin()}</td>
-                                        <td class='text-center'>
+                                        <!--<td class='text-center'>
                                             <a data-toggle='tooltip' data-placement='bottom' title='Abrir' onclick=''>
                                                 <span class='material-icons text-primary' style='cursor: pointer;'>open_in_new</span>
                                             </a>
-                                        </td>
+                                        </td>-->
                                     </tr>
                     ";
                 }
@@ -88,7 +88,7 @@ if ($session){
                 <div class="col-md-10">
                     <div class='row'>
                         <!--ULTIMO SUBTEMA-->
-                        <h3 class="text-break font-weight-normal py-5 <?= $sectionLastSubTema; ?>">ULTIMO TEMA</h3>
+                        <h3 class="text-break font-weight-normal py-5 pl-3 <?= $sectionLastSubTema; ?>">ULTIMO TEMA</h3>
                         <div class='col-md-12 text-center align-self-center <?= $sectionLastSubTema; ?>'>
                             <img src='<?= $srcImgSubTema; ?>' class='img-fluid'>
                         </div>
@@ -115,7 +115,7 @@ if ($session){
                         <div class="col-xl-12">
                             <hr class="my-4">
                         </div>
-                        <h3 class="text-break font-weight-normal py-5 <?= $sectionLastSubTema; ?>">NOTAS</h3>
+                        <h3 class="text-break font-weight-normal py-5 pl-3">NOTAS</h3>
                         <div class="col-xl-12">
                             <!--PENDIENTE NOTAS-->
                         </div>
@@ -124,7 +124,7 @@ if ($session){
                         <div class="col-xl-12">
                             <hr class="my-4">
                         </div>
-                        <h3 class="text-break font-weight-normal py-5 <?= $sectionLastSubTema; ?>">EVALUACIONES PENDIENTES</h3>
+                        <h3 class="text-break font-weight-normal py-5 pl-3 align-middle">EVALUACIONES PENDIENTES <span class="material-icons text-success" style="cursor: pointer;" data-toggle="tooltip" data-placement="bottom" title="Abrir evaluaciones" onclick="openEvaluaciones();">open_in_new</span></h3>
                         <div class="col-xl-12 table-responsive">
                             <table class='table table-hover'>
                                 <thead>
@@ -134,7 +134,7 @@ if ($session){
                                         <th scope='col'>Tema</th>
                                         <th scope='col'>Fecha inicio</th>
                                         <th scope='col'>Fecha fin</th>
-                                        <th scope='col' class='px-5'>Opciones</th>
+                                        <!--<th scope='col' class='px-5'>Opciones</th>-->
                                     </tr>
                                 </thead>
                                 <tbody>

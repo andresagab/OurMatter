@@ -15,3 +15,8 @@ $("#containerFull").ready(function () {
  * @param {String} file Nombre del archivo quie se desea abrir mas su extensión.
  */
 function openRouteWithData(id, file) {location.href = location.origin + location.pathname + '?pg=3&fl=' + file + '&idP=' + id;}
+
+/**
+ * @description Método que redirecciona a la página evaluaciones.
+ */
+function openEvaluaciones() {location.href = location.origin + location.pathname + '?pg=2';}

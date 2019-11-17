@@ -37,7 +37,7 @@ CREATE TABLE sitio(
 
 CREATE TABLE tema(
     id int AUTO_INCREMENT PRIMARY KEY,
-    nombre varchar (50) not null,
+    nombre varchar (200) not null,
     descripcion varchar (1000) not null,
     img varchar (100) not null
 );
@@ -45,7 +45,7 @@ CREATE TABLE tema(
 CREATE TABLE sub_tema(
     id int AUTO_INCREMENT PRIMARY KEY,
     id_tema int not null,
-    nombre varchar (100) not null,
+    nombre varchar (200) not null,
     contenido text not null,
     img varchar(100),
     FULLTEXT (contenido),
@@ -91,13 +91,25 @@ CREATE TABLE evaluacion_opcion(
     FOREIGN KEY (id_evaluacionPregunta) REFERENCES evaluacion_pregunta(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+CREATE TABLE evaluacion_ejecucion(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_evaluacion INT NOT NULL,
+    id_estudiante INT NOT NULL,
+    fechaInicio DATETIME NOT NULL,
+    fechaFin DATETIME,
+    INDEX (id_evaluacion),
+    INDEX (id_estudiante),
+    FOREIGN KEY (id_evaluacion) REFERENCES evaluacion(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_estudiante) REFERENCES estudiante(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
 CREATE TABLE evaluacion_respuesta(
     id int AUTO_INCREMENT PRIMARY KEY,
+    id_evaluacionEjecucion int not null,
     id_evaluacionOpcion int not null,
-    id_estudiante int not null,
     fecha datetime not null,
+    INDEX (id_evaluacionEjecucion),
     INDEX (id_evaluacionOpcion),
-    INDEX (id_estudiante),
-    FOREIGN KEY (id_evaluacionOpcion) REFERENCES evaluacion_opcion(id) ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY (id_estudiante) REFERENCES estudiante(id) ON DELETE RESTRICT ON UPDATE CASCADE
+    FOREIGN KEY (id_evaluacionEjecucion) REFERENCES evaluacion_ejecucion(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+    FOREIGN KEY (id_evaluacionOpcion) REFERENCES evaluacion_opcion(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );

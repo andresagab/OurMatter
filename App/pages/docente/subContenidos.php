@@ -141,7 +141,14 @@ if ($session) {
                             <div class="col-md-1"></div>
                         </div>
                     </div>';
-                } else $tm = 16;
+                } else {
+                    $tm = 16;
+                    $list = '
+                    <div class="col-xl-12 p-5 bg-light text-center">
+                        <div class="alert alert-warning">Aún no has registrado subtemas!</div>
+                    </div>
+                    ';
+                }
             } else header('Location: ./home.php?pg=1&tm=11');
         } else header('Location: ./home.php?pg=1&tm=11');
         ?>

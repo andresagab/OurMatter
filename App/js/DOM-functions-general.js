@@ -75,6 +75,9 @@ function spinnerLoad(id, status) {
 * 14 = Algunos datos se ejecutaron correctamente, sin embargo se registro una falla con otra porción de los datos.
 * 15 = No se pudo conectar con la base de datos.
 * 16 = Aún no se han registrado datos.
+* 17 = Evaluación enviada correctamente.
+* 18 = Ocurrio un error al registrar tu evaluación, intentalo nuevamente.
+* 19 = Evaluación enviada correctamente, sin embargo no respondiste todas las preguntas.
 * */
 function statusToast(extraMjs) {
     if (document.getElementById('toastAction') != null) {
@@ -96,6 +99,9 @@ function statusToast(extraMjs) {
         else if (num_status === '14') mjs = "Algunos datos se ejecutaron correctamente, sin embargo se registro una falla con otra porción de los datos.";
         else if (num_status === '15') mjs = "No se pudo conectar con la base de datos.";
         else if (num_status === '16') mjs = "Aún no se han registrado datos.";
+        else if (num_status === '17') mjs = "Evaluacion enviada correctamente.";
+        else if (num_status === '18') mjs = "Ocurrio un error al registrar tu evaluación, intentalo nuevamente.";
+        else if (num_status === '19') mjs = "Evaluación enviada correctamente, sin embargo no respondiste todas las preguntas.";
         $('#textToast').text(mjs);
         if (num_status != 0) $('.toast').toast('show');
         else $('.toast').toast('hide');
@@ -123,6 +129,9 @@ function statusToast(extraMjs) {
  * 14 = Algunos datos se ejecutaron correctamente, sin embargo se registro una falla con otra porción de los datos.
  * 15 = No se pudo conectar con la base de datos.
  * 16 = Aún no se han registrado datos.
+ * 17 = Evaluación enviada correctamente.
+ * 18 = Ocurrio un error al registrar tu evaluación, intentalo nuevamente.
+ * 19 = Evaluación enviada correctamente, sin embargo no respondiste todas las preguntas.
  * */
 function setValToastAction(num_status) {
     if (document.getElementById('toastAction') != null) $("#toastAction").val(num_status.toString());

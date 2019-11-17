@@ -34,7 +34,6 @@ if ($session) {
                         <div class="row">
                             <div class="col-md-1"></div>
                             <div class="col-md-10">';
-                    $alignItem = false;//False alineado a la derecha, True alineado a la izquierda.
                     for ($i = 0; $i < count($data); $i++){
                         $object = $data[$i];
                         //Declaramos la ruta de la imagen del objeto cargado
@@ -111,8 +110,10 @@ if ($session) {
                             ";
                             for ($j = 0; $j < count($options); $j++) {
                                 $option = $options[$j];
+                                if ($option->getCorrecta()) $correcta = '<span class="material-icons align-middle text-success">check</span>';
+                                else $correcta = '<span class="material-icons align-middle text-danger">close</span>';
                                 $list .= "
-                                <p class='card-text'><span class='font-weight-bold'>" . ($j + 1) . "). </span>{$option->getOpcion()}</p>
+                                <p class='card-text'><span class='font-weight-bold'>" . ($j + 1) . "). </span>{$option->getOpcion()} $correcta</p>
                                 ";
                             }
                         }
@@ -164,14 +165,20 @@ if ($session) {
                         </div>
                         <!--END DIALOG DELETE PREGUNTA ID: {$object->getPregunta()}-->
                         ";
-                        $alignItem = !$alignItem;
                     }
                     $list .= '
                             </div>
                             <div class="col-md-1"></div>
                         </div>
                     </div>';
-                } else $tm = 16;
+                } else {
+                    $tm = 16;
+                    $list = '
+                    <div class="col-xl-12 p-5 bg-light text-center">
+                        <div class="alert alert-warning">Aún no has registrado preguntas para esta evaluación!</div>
+                    </div>
+                    ';
+                }
             } else header('Location: ./home.php?pg=1&tm=11');
         } else header('Location: ./home.php?pg=1&tm=11');
         ?>

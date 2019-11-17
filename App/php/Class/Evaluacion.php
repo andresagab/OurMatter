@@ -233,4 +233,68 @@ class Evaluacion
         return Conector::executeAUD($sql);
     }
 
+    /**
+     * @return string Valor del estado de la evaluación, Disponible o cerrada
+     * @throws Exception
+     */
+    public function statusEvaluacion(){
+        $status = 'Disponible';
+        if ($this->getId() != null) {
+            $currentDate = new DateTime('now', new DateTimeZone('America/Bogota'));
+            $endDate = new DateTime("{$this->getFechaFin()}", new DateTimeZone('America/Bogota'));
+            if ($currentDate > $endDate) $status = 'Cerrada';
+        }
+        return $status;
+    }
+
+    /**
+     * @param $status String Valor que retorna el método statusEvaluación
+     * @return string Valor del color correspondiente al estado de la evaluación: success = Disponible, danger = Cerrada
+     * y dark = Desconocido
+     */
+    public function getColorStatus($status){
+        if (strtolower($status) == 'disponible') return 'success';
+        else if (strtolower($status) == 'cerrada') return 'danger';
+        else return 'dark';
+    }
+
+    /**
+     * @param $idEstudiante Valor del id del estudiante que se desea comprobar
+     * @param $nameStatus Boolean True si se quiere el nombre del estado, False si se quiere el numero del estado
+     * @return int|String Valor correspondiente al estado de la evaluación del estudiante: 0 = Pendiente | 1 = Incompleta | 2 = Terminada
+     */
+    public function statusEvaluacionEstudiante($idEstudiante, $nameStatus){
+        $status = 0;
+        $name = 'Pendiente';
+        if ($this->id != null) {
+            //Cargamos las evaluaciones que el estudiante tiene registrada una realción
+            $evaluacionEstudiante = new Evaluacion_Ejecucion('id_evaluacion', $this->id, "AND id_estudiante = $idEstudiante", 'order by id');
+            if ($evaluacionEstudiante->getId() != null) {
+                if ($evaluacionEstudiante->getFechaFin() == null || $evaluacionEstudiante == '') {
+                    $status = 1;
+                    $name = 'Incompleta';
+                }
+                else {
+                    $status = 2;
+                    $name = 'Terminada';
+                }
+            }
+        }
+        if ($nameStatus) return $name;
+        else return $status;
+    }
+
+    /**
+     * @param $status String Valor que retorna el método statusEvaluaciónEstudiante
+     * @return string Valor del color correspondiente al estado de la evaluación del estudiante
+     */
+    public function getColorStatusEvaluacionEstudiante($status){
+        switch ($status){
+            case 0: return 'danger';
+            case 1: return 'warning';
+            case 2: return 'success';
+            default: return 'dark';
+        }
+    }
+
 }

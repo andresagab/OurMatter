@@ -141,7 +141,7 @@ class Estudiante
     public function canDelete(){
         $status = true;
         if ($this->getId() != null) {
-            $sql = "select count(id) as quantity from evaluacion_respuesta where id_estudiante = {$this->getId()}";
+            $sql = "select count(id) as quantity from evaluacion_ejecucion where id_estudiante = {$this->getId()}";
             if (is_array($result = Conector::ejecutarQuery($sql, null))) {
                 if (count($result) > 0) {
                     if (isset($result[0]['quantity']))
@@ -191,11 +191,17 @@ class Estudiante
         $objects = array();
         if ($this->id != null) {
             $sql = "select ev.id, ev.id_tema, ev.nombre, ev.descripcion, ev.fechaInicio, ev.fechaFin
+                    from evaluacion ev WHERE ev.id NOT IN (SELECT id_evaluacion FROM evaluacion_ejecucion WHERE id_estudiante = {$this->id})";
+            /*$sql = "select ev.id, ev.id_tema, ev.nombre, ev.descripcion, ev.fechaInicio, ev.fechaFin
+                    from
+                         evaluacion ev inner join evaluacion_ejecucion ee ON ev.id = ee.id_evaluacion
+                         INNER JOIN estudiante e on ee.id_estudiante = e.id WHERE e.id = {$this->id} ORDER BY ev.fechaFin DESC";*/
+            /*$sql = "select ev.id, ev.id_tema, ev.nombre, ev.descripcion, ev.fechaInicio, ev.fechaFin
                     from
                          evaluacion ev inner join evaluacion_pregunta ep on ev.id = ep.id_evaluacion
                              inner join evaluacion_opcion eo ON eo.id_evaluacionPregunta = ep.id
                              inner join evaluacion_respuesta er ON er.id_evaluacionOpcion = eo.id
-                             inner join estudiante e on er.id_estudiante = e.id WHERE e.id = {$this->id} ORDER BY ev.fechaFin DESC";
+                             inner join estudiante e on er.id_estudiante = e.id WHERE e.id = {$this->id} ORDER BY ev.fechaFin DESC";*/
             if (is_array(($result = Conector::ejecutarQuery($sql, null)))) {
                 for ($i = 0; $i < count($result); $i++) {
                     if (isset($result[$i]['id'])) $objects[$i] = new Evaluacion($result[$i], null, null, null);

@@ -6,7 +6,7 @@
 $("#containerFull").ready(function () {
 
     statusToast(null);
-    document.getElementById('txtPregunta').focus();
+    document.getElementById('txtOpcion_1').focus();
 
 });
 

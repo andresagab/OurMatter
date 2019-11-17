@@ -32,7 +32,6 @@ if ($session) {
                         $srcImg = "./../../img/not_image.jpg";
                         if (file_exists(dirname(__FILE__) . "./../../img/docente/contenidos/{$object->getImg()}")) $srcImg = "./../../img/docente/contenidos/{$object->getImg()}";
                         $list .= "
-                                <script src='./../../js/docente/contenidos.js'></script>
                                 <!--CARD TEMA : {$object->getNombre()}-->
                                 <div class='col-xl-4'>
                                     <div class='card mb-4 shadow-sm'>
@@ -85,8 +84,15 @@ if ($session) {
                 $list .= "</div>
                         </div>";
             }
-        } else $tm = 16;
+        } else {
+            $tm = 16;
+            $list = '
+                <div class="col-xl-12 pl-5 pr-5">
+                    <div class="alert alert-warning"><h4 class="font-weight-normal text-center">Aún no has registrado ningun contenido.</h4></div>
+                </div>';
+        }
         ?>
+        <script src='./../../js/docente/contenidos.js'></script>
         <div class="col-xl-12 h-100 mb-5">
             <div class="row h-100">
                 <section class="jumbotron text-center w-100 bg-secondary text-light">

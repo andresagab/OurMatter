@@ -217,3 +217,25 @@ function getRandomColorText($min, $max) {
     }
     return $color;
 }
+
+function getDiasEnHoras($dias) {
+    return $dias*24;
+}
+
+function getHorasEnMinutos($horas) {
+    return $horas*60;
+}
+
+function getMinutesInSeconds($minutes) {
+    return $minutes*60;
+}
+
+function timeDiffInHours($timeStar, $timeEnd, $string) {
+    $timeZone = new DateTimeZone('America/Bogota');
+    $tiempoInicial = new DateTime($timeStar, $timeZone);
+    $tiempoActual = new DateTime($timeEnd, $timeZone);
+    $diff = date_diff($tiempoInicial, $tiempoActual, null);
+    foreach ($diff as $key => $value) ${$key}=$value;
+    if (!$string) return getDiasEnHoras($d) + $h;
+    else return getDiasEnHoras($d) + $h . ":" . + $i . ":" . $s;
+}

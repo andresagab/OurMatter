@@ -64,52 +64,5 @@ class Conector {
         $connect->desconectar();
         return $status;
     }
-
-    public static function ejecutarQueryMultiple($cadenaSQL,$bd){
-        $cadenasSQL= explode(';', $cadenaSQL);
-        $conector=new Conector();
-        $conector->conectar($bd);
-        
-        for ($i = 0; $i < count($cadenasSQL); $i++) {
-            $cadenaSQL=$cadenasSQL[$i];
-            $sentencia=$conector->conexion->prepare($cadenaSQL);//seguramente hay error aqui
-            if (!$sentencia->execute()){
-                echo "Error al ejecutar $cadenaSQL en $bd";
-                $conector->desconectar();
-                return(false);
-            } else {
-                $consulta=$sentencia->fetchAll();
-                $sentencia->closeCursor();
-            }            
-        }
-        $conector->desconectar();
-        return(true);
-    }
-
-    public static function getConsultaEnJSON($sql,$bd){
-        $conector=new Conector();
-        $conector->conectar($bd);
-        $sentencia=$conector->conexion->prepare($sql);//seguramente hay error aqui
-        if (!$sentencia->execute()){
-            echo "Error al ejecutar $sql en $bd";
-            $conector->desconectar();
-            return(false);
-        } else {
-            $resultadoOrdenado=array();
-            $consulta= mysqli_query($conector->conexion, $sql);
-            while ($row = mysqli_fetch_array($resultado)){
-
-                $objeto=array();
-                $objeto["id"]=$row['id'];
-                $objeto["nombre"]=$row['nombre'];
-                $objeto["descripcion"]=$row['descripcion'];
-                $objeto["imagen"]=$row['imagen'];
-                array_push($resultadoOrdenado, $objeto);
-            }
-            $sentencia->closeCursor();
-            $conector->desconectar();
-            return($consulta);//comprobar qu� retorna en un insert, delete y update
-        }
-    }
     
 }
