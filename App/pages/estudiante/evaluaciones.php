@@ -47,20 +47,28 @@ if ($session) {
                                 </tr>
                             </thead>
                             <tbody>";
+            $totalNotas = 0;
             for ($i = 0; $i < count($data); $i++){
                 $object = $data[$i];
                 //Cargamos el estado de la evaluacion
                 $statusEvaluacion = $object->statusEvaluacion();
-                //Declaramos la variable que controla la desactivación del btnEliminar
+
+                //Declaramos la variable que controla la apertura de la evaluación
+                /*if ($object->statusEvaluacion() == 'Disponible') $btnEjecutarEvaluacion = "<a style='cursor: pointer;' title='Desarrollar evaluacion' >*/
                 $btnEjecutarEvaluacion = "<a style='cursor: pointer;' title='Ver evaluacion' onclick='desarrollarEvaluacion({$object->getId()}, " . '"' . md5('evaluacionDesarrollo.php') . '"' . ");'><span class='material-icons text-primary'>visibility</span></a>";
-                if ($object->statusEvaluacion() == 'Disponible') $btnEjecutarEvaluacion = "<a style='cursor: pointer;' title='Desarrollar evaluacion' >
-                        <span class='material-icons text-success' data-toggle='modal' data-target='#del_{$object->getId()}'>play_circle_filled</span>
-                    </a>";
+                if ($object->statusEvaluacionEstudiante($estudiante->getId() ,false) === 0) $btnEjecutarEvaluacion = "<a style='cursor: pointer;' title='Desarrollar evaluacion' ><span class='material-icons text-success' data-toggle='modal' data-target='#del_{$object->getId()}'>play_circle_filled</span></a>";
+
                 //Cargamos una posible evaluación terminada
                 $evaluacionEjecucion = new Evaluacion_Ejecucion('id_evaluacion', $object->getId(), "AND id_estudiante = {$estudiante->getId()}", null);
+
+                //Habilitamos el botón de retroalimentación solo si la evaluación esta cerrada
+                $btnRetroalimentacion = '';
+                if ($object->statusEvaluacion() === 'Cerrada' && $evaluacionEjecucion->getId() != null) $btnRetroalimentacion = "<a style='cursor: pointer;' title='Ver retroalimentación' ><span class='material-icons text-success' onclick='openRetroalimentacion({$evaluacionEjecucion->getId()}, " . '"' . md5('evaluacionRetroalimentacion.php') . '"' . ");'>style</span></a>";
+
                 if ($evaluacionEjecucion->getId() != null) {
                     $calificacion = Evaluacion_Ejecucion::getCalificacion($evaluacionEjecucion->getTotalPreguntas(), $evaluacionEjecucion->getTotalRespuestasCorrectas());
                     $colorCalificacion = Evaluacion_Ejecucion::getColorCalificacion($calificacion);
+                    $totalNotas += $calificacion;
                 } else {
                     $calificacion = '-';
                     $colorCalificacion = 'warning';
@@ -77,6 +85,7 @@ if ($session) {
                                     <td class='text-center text-$colorCalificacion'>$calificacion</span></td>
                                     <td class='text-center align-middle'>
                                         $btnEjecutarEvaluacion
+                                        $btnRetroalimentacion
                                     </td>
                                 </tr>
                                 <!--DESARROLLAR EVALUACIÓN: {$object->getNombre()}-->
@@ -102,7 +111,13 @@ if ($session) {
                                 <!--END DESARROLLAR EVALUACIÓN: {$object->getNombre()}-->
                 ";
             }
+            $promedio = round(($totalNotas / count($data)), 1);
             $list .= "
+                                <tr>
+                                    <th colspan='6' class='text-right'>Promedio: </th>
+                                    <td class='text-center text-". Evaluacion_Ejecucion::getColorCalificacion($promedio) . "'>" . $promedio . "</td>
+                                    <td></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

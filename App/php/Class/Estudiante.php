@@ -144,8 +144,8 @@ class Estudiante
             $sql = "select count(id) as quantity from evaluacion_ejecucion where id_estudiante = {$this->getId()}";
             if (is_array($result = Conector::ejecutarQuery($sql, null))) {
                 if (count($result) > 0) {
-                    if (isset($result[0]['quantity']))
-                        if ($result[0]['quantity'] > 0) $status = false;
+                    if (isset($result[0][0]))
+                        if ((int) $result[0][0] > 0) $status = false;
                 }
             }
         }

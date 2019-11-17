@@ -120,7 +120,7 @@ class Evaluacion_Ejecucion
     }
 
     /**
-     * @return Evaluacion_Pregunta objeto de la clase Evalucion
+     * @return Evaluacion objeto de la clase Evalucion
      */
     public function getEvaluacion() {
         if ($this->idEvaluacion != null) return new Evaluacion('id', $this->idEvaluacion, null, null);
@@ -128,7 +128,7 @@ class Evaluacion_Ejecucion
     }
 
     /**
-     * @return Evaluacion_Pregunta objeto de la clase Estudiante
+     * @return Estudiante objeto de la clase Estudiante
      */
     public function getEstudiante() {
         if ($this->idEstudiante != null) return new Estudiante('id', $this->idEstudiante, null, null);

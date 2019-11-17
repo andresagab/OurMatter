@@ -15,6 +15,14 @@ $("#containerFull").ready(function () {
  */
 function backPrincipalPage() {location.href = location.origin + location.pathname + '?pg=2';}
 
+/**
+ *
+ * @param id {int|string} Id de la evaluación ejecución
+ * @param file {string} Nombre del archivo en md5
+ * @description Método que abre el archivo pasado por file
+ */
+function openRetroalimentacion(id, file) {location.href = location.origin + location.pathname + '?pg=3&fl=' + file + '&id=' + id;}
+
 function remainTime() {
     var time = document.getElementById('timer').value.split(":");
     var hours = time[0];

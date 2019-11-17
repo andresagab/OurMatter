@@ -53,13 +53,18 @@ if ($session) {
                                 if (count($preguntas) > 0) {
 
                                     date_default_timezone_set('America/Bogota');
-                                    if ($disponibilidad === 'Disponible') $remainTime = timeDiffInHours(date('Y-m-d H:i:s'), $evaluacion->getFechaFin(), true);
-                                    else $remainTime = '0:0:0';
+                                    if ($disponibilidad === 'Disponible') {
+                                        $remainTime = timeDiffInHours(date('Y-m-d H:i:s'), $evaluacion->getFechaFin(), true);
+                                        $visibleContent = '';
+                                    } else {
+                                        $remainTime = '0:0:0';
+                                        $visibleContent = 'invisible';
+                                    }
                                     $inputTiempo = '<input type="hidden" id="timer" value="' . $remainTime . '">';
 
                                     $list .= "
                                     $inputTiempo
-                                    <div class='col-xl-12 pb-5 bg-light'>
+                                    <div class='col-xl-12 pb-5 bg-light $visibleContent'>
                                         <div class='row'>
                                             <div class='col-xl-12 text-center'>
                                                 <h6 class='display-4 pt-3 text-info' id='txtTimer'>$remainTime</h6>
@@ -136,7 +141,7 @@ if ($session) {
                             } else {
                                 $list = '
                                     <div class="col-xl-12 pb-5 bg-light">
-                                        <div class="alert alert-success text-center">La evaluación ya ha sido completada.</div>
+                                        <div class="alert alert-success text-center">La evaluación ya ha sido completada o algunas preguntas no tienen respuestas para ti, comunicate con tu docente!.</div>
                                     </div>';
                             }
                         } else header("Location: ./home.php?pg=2&tm=11");
@@ -151,6 +156,9 @@ if ($session) {
                         $colorCalificacion = Evaluacion_Ejecucion::getColorCalificacion($calificacion);
                         //La evaluacion fue terminada
                         $tituloExamen = 'Resultado';
+                        //Generamos el botón que permite ver la retroalimentación solo cuando se haya cerrado la evaluación
+                        $btnRetroalimentacion = '';
+                        if ($evaluacionEjecucion->getEvaluacion()->statusEvaluacion() === 'Cerrada') $btnRetroalimentacion = "<div class='card-footer bg-transparent align-self-center'><div class='btn btn-success' onclick='openRetroalimentacion({$evaluacionEjecucion->getId()}, "  . '"' . md5('evaluacionRetroalimentacion.php') . '"' . ");'>Retroalimentación</div></div>";
                         $list .= "
                                     <div class='col-xl-12 p-3 bg-light'>
                                         <div class='row'>
@@ -174,6 +182,7 @@ if ($session) {
                                                             <span class='font-weight-bold'>Calificación: </span><span class='text-$colorCalificacion'>$calificacion</span>
                                                         </p>
                                                     </div>
+                                                    $btnRetroalimentacion
                                                 </div>
                                             </div>
                                             <div class='col-md-1'></div>

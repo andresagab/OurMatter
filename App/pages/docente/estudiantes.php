@@ -21,7 +21,6 @@ if ($session) {
         //Comprobamos que hayan registros, de no haber ninguno establecemos el valor correspondiente a la variable toast
         if (count($data) > 0){
             //Declaramos la variable que controla la desactivación del btnEliminar
-            $btnDelete = ['disabled', 'invisible'];
             $list = "
             <div class='col-xl-12 bg-light p-5 align-content-center'>
                 <div class='row align-self-center'>
@@ -41,7 +40,8 @@ if ($session) {
             for ($i = 0; $i < count($data); $i++){
                 $object = $data[$i];
                 //Declaramos la ruta de la imagen del objeto cargado
-                if ($object->canDelete()) $btnDelete = ['', 'visible'];
+                $btnDelete = ['disabled', 'invisible'];
+                if ((bool) $object->canDelete()) $btnDelete = ['', 'visible'];
                 $list .= "
                                 <tr>
                                     <th scope='row'>" . ($i + 1) . "</th>
@@ -52,7 +52,7 @@ if ($session) {
                                         <a data-toggle='tooltip' data-placement='bottom' title='Editar' onclick='openFrm({$object->getId()}, " . '"' . md5('estudiantesFrm.php') . '"' . ");'>
                                             <span class='material-icons text-success' style='cursor: pointer;'>edit</span>
                                         </a>
-                                        <a data-toggle='tooltip' data-placement='bottom' title='Eliminar'>
+                                        <a class='" . $btnDelete[1] . "' data-toggle='tooltip' data-placement='bottom' title='Eliminar' " . $btnDelete[0] . ">
                                             <span class='material-icons text-danger' style='cursor: pointer;' data-toggle='modal' data-target='#del_{$object->getId()}'>delete</span>
                                         </a>
                                     </td>
