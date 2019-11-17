@@ -14,7 +14,7 @@ $("#containerFull").ready(function () {
  * @param id Valor correspondiente a la llave del objeto
  * @param {String} file Nombre del archivo quie se desea abrir mas su extensión.
  */
-function openRetroAlimentacion(id, file) {
+function openRetroalimentacion(id, file) {
     if (id != null) location.href = location.origin + location.pathname + '?pg=5&fl=' + file + '&id=' + id;
     else location.href = location.origin + location.pathname + '?pg=5&fl=' + file;
 };

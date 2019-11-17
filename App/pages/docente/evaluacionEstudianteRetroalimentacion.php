@@ -1,6 +1,6 @@
 <?php
 /**
- * @Page evaluacionRetroalimentacion
+ * @Page evaluacionEstudianteRetroalimentacion
  * @Autor Anres Geovanny Angulo Botina
  * @email andrescabj981@gmail.com
  * $tm = 0 : No hay errores o informes.
@@ -10,7 +10,7 @@ include_once dirname(__FILE__) . './../../php/Scripts/session_manager.php';
 if (isset($_GET['tm'])) $tm = $_GET['tm'];
 else $tm = 0;
 if ($session) {
-    if (strtolower(@$USUARIO['typeUser']) == 'estudiante') {
+    if (strtolower(@$USUARIO['typeUser']) == 'docente') {
         include_once dirname(__FILE__) . './../../php/Scripts/general_funcitons.php';
         require_once dirname(__FILE__) . './../../php/Class/Conector.php';
         require_once dirname(__FILE__) . './../../php/Class/Tema.php';
@@ -63,7 +63,7 @@ if ($session) {
                     </div>
                     ";
 
-                    if ($evaluacion->statusEvaluacion() === 'Cerrada') {
+                    if ($evaluacion->statusEvaluacionEstudiante($estudiante->getId(), false) === 2) {
 
                         //Cargamos todas las preguntas de la evaluacion
                         $preguntas = Evaluacion_Pregunta::getObjects("id_evaluacion = {$evaluacion->getId()}", 'order by id asc');
@@ -102,7 +102,7 @@ if ($session) {
                                 //Cargamos las opciones de respuesta que se registraron como respuesta de la evaluacion del estudiante
                                 $optionsRespuesta = Evaluacion_Opcion::getObjects("id IN (SELECT id_evaluacionOpcion FROM evaluacion_respuesta WHERE id_evaluacionEjecucion = {$evaluacionEjecucion->getId()})", null);
                                 //Declaramos la alerta de que la pregunta aún no tiene registradas sus opciones de respuesta
-                                $alert = '<div class="mt-3 alert alert-warning">Sin opciones de respuesta, comunícate con tú docente!</div>';
+                                $alert = '<div class="mt-3 alert alert-warning">Aún no se han registrado las opciones de respuesta!</div>';
                                 //Evaluamos que hayan opciones registradas
                                 if (count($options) > 0 && count($options) <= 4) {
                                     $alert = '';
@@ -117,11 +117,10 @@ if ($session) {
                                             if ($option->getId() === $optionsRespuesta[$x]->getId()) {
                                                 if ($option->getCorrecta()) {
                                                     $opcionEstudiante = '<span class="material-icons align-middle text-success font-weight-bold">thumb_up</span>';
-                                                    if ($correccionRespuesta === "") $correccionRespuesta = "<div class='alert alert-success'><h6 class='align-middle'>Escogiste la respuesta correcta!</h6></div>";
+                                                    if ($correccionRespuesta === "") $correccionRespuesta = "<div class='alert alert-success'><h6 class='align-middle'>El estudiante escogió la respuesta correcta!</h6></div>";
                                                 }
                                                 else {
                                                     $opcionEstudiante = '<span class="material-icons align-middle text-danger font-weight-bold">thumb_down</span>';
-                                                    //if ($correccionRespuesta === "") $correccionRespuesta = "<div class='alert alert-warning'><h6 class='align-middle'>La respuesta correcta es: <span class='font-weight-bold'>{$option->getOpcion()}</span></h6></div>";
                                                 }
                                                 break;
                                             }
@@ -133,10 +132,8 @@ if ($session) {
                                         }
                                         else $correcta = '<span class="material-icons align-middle text-danger">close</span>';
                                         $list .= "
-                                                                    <!--<p class='card-text'><span class='font-weight-bold'>" . ($j + 1) . "). </span>{$option->getOpcion()}</p>-->
                                                                     <div class='form-group'>
                                                                         <div class='custom-control custom-radio'>
-                                                                            <!--<label class='custom-control-label text-break' for='question_{$j}_{$pregunta->getId()}'>{$letters[$j]}. {$option->getOpcion()}</label>-->
                                                                             <p class='card-text text-break'><span class='font-weight-bold'>$letters[$j]). </span>{$option->getOpcion()} $correcta $opcionEstudiante</p>
                                                                         </div>
                                                                     </div>
@@ -147,7 +144,7 @@ if ($session) {
                                 /*END OPCIONES RESPUESTA*/
                                 /*--------------------------------------------------------------------------------------------*/
                                 //Comprobamos que el estudiante tenga registrada la respuesta de la pregunta actual en el for
-                                $sinRespuestaAlert = "<div class='alert alert-danger'><h6 class='align-middle'>No registraste respuesta para esta pregunta!</h6></div>";
+                                $sinRespuestaAlert = "<div class='alert alert-danger'><h6 class='align-middle'>El estudiante no registró respuesta para esta pregunta!</h6></div>";
                                 for ($x = 0; $x < count($preguntasRespuesta); $x++) {
                                     if ($pregunta->getId() === $preguntasRespuesta[$x]->getId()) {
                                         $sinRespuestaAlert = '';
@@ -171,7 +168,7 @@ if ($session) {
 
                         } else $list = '
                                     <div class="col-xl-12 pb-5 bg-light">
-                                        <div class="alert alert-danger">La evaluación no tiene preguntas registradas, comuncate con tú docente!.</div>
+                                        <div class="alert alert-danger">La evaluación aún no tiene preguntas registradas!</div>
                                     </div>';
 
                     } else {
@@ -179,7 +176,7 @@ if ($session) {
                         <div class='col-xl-12 pb-5 bg-light'>
                             <div class='row'>
                                 <div class='col-xl-12 text-center'>
-                                    <div class='alert alert-warning'><h3>La retroalimentación estará disponible cuando la evaluacións se haya cerrado</h3></div>
+                                    <div class='alert alert-warning'><h3>La retroalimentación estará disponible cuando el estudiante termine de desarrollar la evaluación.</h3></div>
                                 </div>
                             </div>
                         </div>
@@ -193,7 +190,7 @@ if ($session) {
         } else header("Location: ./home.php?pg=2&tm=11");
         ?>
         <!--EVALUACION INFO-->
-        <script src="./../../js/estudiante/evaluacionRetroalimentacion.js"></script>
+        <script src="./../../js/docente/evaluacionEstudianteRetroalimentacion.js"></script>
         <div class="col-xl-12 bg-secondary p-5 text-light">
             <div class="row">
                 <div class="col-md-0 col-lg-2"></div>
@@ -203,7 +200,7 @@ if ($session) {
                     <p class="text-center pt-3"><?= $evaluacion->getDescripcion(); ?></p>
                 </div>
                 <div class="col-md-0 col-lg-2 align-self-center text-center text-md-center text-lg-right pt-5 pt-sm-3 pt-md-3">
-                    <button class="btn btn-outline-light text-center" id="btnBackParentPage" onclick="backPrincipalPage(<?= $evaluacion->getId() ?>, '<?= md5('evaluacionDesarrollo.php') ?>');">
+                    <button class="btn btn-outline-light text-center" id="btnBackParentPage" onclick="backToEvaluacionEstudiantes(<?= $evaluacion->getId() ?>, '<?= md5('evaluacionEstudiantes.php') ?>');">
                         <span class="">Regresar <i class="material-icons align-middle">arrow_back</i></span>
                     </button>
                 </div>
