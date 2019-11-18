@@ -166,7 +166,7 @@ class Evaluacion_Ejecucion
     /**
      * @param $filter : String con el filtro sql deseado, sin el where incluido.
      * @param $order : String con el orden deseado.
-     * @return array : Vector que contiene los registros en tipo de objeto 'Sitio'
+     * @return Evaluacion_Ejecucion[]: Vector que contiene los registros en tipo de objeto 'Sitio'
      */
     public static function getObjects($filter, $order){
         $data = Evaluacion_Ejecucion::getList($filter, $order)['data'];

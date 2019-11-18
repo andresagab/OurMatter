@@ -174,7 +174,7 @@ class Evaluacion
     /**
      * @param $filter : String con el filtro sql deseado, sin el where incluido.
      * @param $order : String con el orden deseado.
-     * @return array : Vector que contiene los registros en tipo de objeto 'Sitio'
+     * @return Evaluacion[] : Vector que contiene los registros en tipo de objeto 'Sitio'
      */
     public static function getObjects($filter, $order){
         $data = Evaluacion::getList($filter, $order)['data'];
@@ -297,6 +297,10 @@ class Evaluacion
         }
     }
 
+    /**
+     * @version Método que retorna el estado de la evaluación con respecto a respuestas de estudiantes
+     * @return bool True la evaluación ha sido resuelta por algunos estudiantes, False la evaluación aún no ha sido resuelta
+     */
     public function studentsAnswered(){
         $status = false;
         if ($this->id != null) {
@@ -309,6 +313,24 @@ class Evaluacion
             }
         }
         return $status;
+    }
+
+    /**
+     * @version Método que nos genera el número de respuestas registradas para la evaluación
+     * @return int Cantidad de respuestas registradas
+     */
+    public function getTotalAnswers(){
+        $total = 0;
+        if ($this->id != null) {
+            $sql = "SELECT count(id) as quantity FROM evaluacion_ejecucion WHERE id_evaluacion = {$this->id}";
+            if (is_array($result = Conector::ejecutarQuery($sql, null))) {
+                if (count($result) > 0) {
+                    if (isset($result[0]['quantity']))
+                        if ((int) $result[0]['quantity'] > 0) $total = $result[0]['quantity'];
+                }
+            }
+        }
+        return $total;
     }
 
 }
