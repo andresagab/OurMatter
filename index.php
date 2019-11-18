@@ -6,6 +6,35 @@ if (isset($_SESSION['USUARIO'])) {
         if (strtolower($session['usuario']['typeUser']) == 'docente') header("Location: ./App/Pages/docente/home.php?pg=0&mb=t");
         else header("Location: ./App/Pages/estudiante/home.php?pg=0&mb=t");
     }
+} else {
+
+    if (isset($_GET['pg'])) {
+        switch ((Int)$_GET['pg']) {
+            case 0:
+                $sourcePage = './App/pages/publico/informacion.php';
+                break;
+            case 1:
+                $sourcePage = './App/pages/publico/contacto.php';
+                break;
+            default:
+                $sourcePage = './../404.php';
+        }
+    } else $sourcePage = './App/pages/publico/inicio.php';
+
+    //Cargamos todos los archivos necesarios para presentar los datos del sitio
+    require_once dirname(__FILE__) . '.\App\php\Scripts\general_funcitons.php';
+    require_once dirname(__FILE__) . '.\App\php\Class\Conector.php';
+    require_once dirname(__FILE__) . '.\App\php\Class\Usuario.php';
+    require_once dirname(__FILE__) . '.\App\php\Class\Sitio.php';
+
+    //Cargamos los datos del sitio
+    $sitio = new Sitio('id', 1, null, null);
+    //Comprobamos que el objeto cargado no este vacio
+    if ($sitio->getId() == null) {
+        //Llenamos algunos campos con valores por defecto
+        $sitio->setNameMateria('OurMatter');
+    }
+
 }
 $tm = 2;
 if (isset($_GET['tm'])) $tm = $_GET['tm'];
@@ -30,10 +59,10 @@ $toast = "<input type='hidden' id='toastAction' name='toastAction' value='$tm'>"
     <body class="bg-dark">
     <!--MENU-->
     <nav id="navbarMenu" class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
-        <a id="btnHome" class="navbar-brand active" data-toggle="tooltip" data-placement="bottom"
-           title="Química - Inicio">
-            <img src="App/img/Q.png" width="30px" height="30px" class="d-inline-block bg-dark" alt="">
-            <!--Quimica-->
+        <a id="btnHome" class="navbar-brand active" style="cursor: pointer;" data-toggle="tooltip" data-placement="bottom" title="<?= $sitio->getNameMateria() ?> - Inicio" href="index.php">
+            <div class="align-middle align-self-center text-uppercase text-light">
+                <?= $sitio->getNameMateria(); ?>
+            </div>
         </a>
         <button id="btnToggleMenu" class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#optionsNavBar" aria-controls="optionsNavBar" aria-expanded="false"
@@ -43,12 +72,12 @@ $toast = "<input type='hidden' id='toastAction' name='toastAction' value='$tm'>"
         <div class="collapse navbar-collapse justify-content-end" id="optionsNavBar">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a id="btnInformacionMain" class="nav-link" href="#">
+                    <a id="btnInformacionMain" class="nav-link" href="index.php?pg=0">
                         Información
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a id="btnContactoMain" class="nav-link" href="#">
+                    <a id="btnContactoMain" class="nav-link" href="index.php?pg=1">
                         Contacto
                     </a>
                 </li>
@@ -62,7 +91,7 @@ $toast = "<input type='hidden' id='toastAction' name='toastAction' value='$tm'>"
     </nav>
     <!--END MENU-->
     <!--CONTENT-->
-    <div id="containerFull" class="pt-5"></div>
+    <div id="containerFull" class="pt-5"><?php include $sourcePage; ?></div>
     <!--END CONTENT-->
     <!--MODAL LOGIN-->
     <div class="modal fade" id="modalLogIn" tabindex="-1" role="dialog" aria-labelledby="modalLogIn">
@@ -106,7 +135,7 @@ $toast = "<input type='hidden' id='toastAction' name='toastAction' value='$tm'>"
     <!--END MODAL LOGIN-->
     <!--TOAS MJS-->
     <?= $toast ?>
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000" style="position: absolute; top: 15px; left: 15px; z-index: 1100;">
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000" style="position: absolute; top: 45px; right: 15px; z-index: 1100;">
         <div class="toast-header">
             <!--<img src="App/img/Q.png" class="rounded mr-2">-->
             <strong class="mr-auto">OurMatter</strong>
