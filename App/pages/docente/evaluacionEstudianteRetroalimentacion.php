@@ -20,6 +20,7 @@ if ($session) {
         require_once dirname(__FILE__) . './../../php/Class/Evaluacion_Pregunta.php';
         require_once dirname(__FILE__) . './../../php/Class/Evaluacion_Opcion.php';
 
+
         //Comprobamos que exista el id de la ejecución de evaluación
         if (isset($_GET['id'])) {
 
@@ -27,10 +28,16 @@ if ($session) {
             $evaluacionEjecucion = new Evaluacion_Ejecucion('id', $_GET['id'], null, null);
             if ($evaluacionEjecucion->getId() != null) {
 
+
                 //Cargamos la evaluacion
                 $evaluacion = $evaluacionEjecucion->getEvaluacion();
                 //Cargamos el estudiantes
                 $estudiante = $evaluacionEjecucion->getEstudiante();
+
+                //Comprobamos is existe la varibale BE para determinar el tipo de botón que se va usar para regresar entre páginas
+                $btnBack = '<button class="btn btn-outline-light text-center" id="btnBackParentPage" onclick="backToEvaluacionEstudiantes(' . $evaluacion->getId() . ', ' . "'" . md5('evaluacionEstudiantes.php') . "'" .');"><span class="">Regresar <i class="material-icons align-middle">arrow_back</i></span></button>';
+                if (isset($_GET['BE'])) $btnBack = '<button class="btn btn-outline-light text-center" id="btnBackParentPage" onclick="backToEvaluacionEstudiantes(' . $estudiante->getId() . ', ' . "'" . md5('evaluacionesEstudiante.php') . "'" .');"><span class="">Regresar <i class="material-icons align-middle">arrow_back</i></span></button>';
+
                 //Comprobamos que se haya cargado la evaluación y el estudiante
                 if ($evaluacion->getId() != null && $estudiante->getId() != null ) {
 
@@ -200,9 +207,7 @@ if ($session) {
                     <p class="text-center pt-3"><?= $evaluacion->getDescripcion(); ?></p>
                 </div>
                 <div class="col-md-0 col-lg-2 align-self-center text-center text-md-center text-lg-right pt-5 pt-sm-3 pt-md-3">
-                    <button class="btn btn-outline-light text-center" id="btnBackParentPage" onclick="backToEvaluacionEstudiantes(<?= $evaluacion->getId() ?>, '<?= md5('evaluacionEstudiantes.php') ?>');">
-                        <span class="">Regresar <i class="material-icons align-middle">arrow_back</i></span>
-                    </button>
+                    <?= $btnBack; ?>
                 </div>
             </div>
         </div>
@@ -215,8 +220,7 @@ if ($session) {
                     <h5 class="display-4 text-uppercase text-center">RESUMEN</h5>
                     <?= $resumen; ?>
                 </div>
-                <div class="col-xl-2 align-self-center">
-                </div>
+                <div class="col-xl-2 align-self-center"></div>
             </div>
         </div>
         <?= $list; ?>

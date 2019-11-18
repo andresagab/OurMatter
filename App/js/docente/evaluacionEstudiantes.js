@@ -10,13 +10,12 @@ $("#containerFull").ready(function () {
 });
 
 /**
- * @description Esta método abre el formulario de registro.
- * @param id Valor correspondiente a la llave del objeto
+ * @description Esta método abre la retroalimentación de una evaluación
+ * @param id Valor correspondiente a la llave del la evaluacion_ejecución
  * @param {String} file Nombre del archivo quie se desea abrir mas su extensión.
  */
 function openRetroalimentacion(id, file) {
-    if (id != null) location.href = location.origin + location.pathname + '?pg=5&fl=' + file + '&id=' + id;
-    else location.href = location.origin + location.pathname + '?pg=5&fl=' + file;
+    location.href = location.origin + location.pathname + '?pg=5&fl=' + file + '&id=' + id;
 };
 
 /**

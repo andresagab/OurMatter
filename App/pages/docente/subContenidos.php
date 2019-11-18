@@ -91,9 +91,9 @@ if ($session) {
                                         <div class='card-footer border-light bg-light'>
                                             <div class='d-flex justify-content-between align-items-center'>
                                                 <div class='btn-group'>
-                                                    <button type='button' class='btn btn-sm btn-outline-primary' data-toggle='tooltip' data-placement='bottom' title='Abrir' onclick=''>
+                                                    <!--<button type='button' class='btn btn-sm btn-outline-primary' data-toggle='tooltip' data-placement='bottom' title='Abrir' onclick=''>
                                                     <span class='material-icons align-middle'>open_in_new</span>
-                                                    </button>
+                                                    </button>-->
                                                     <button type='button' class='btn btn-sm btn-outline-success' data-toggle='tooltip' data-placement='bottom' title='Editar' onclick='openFrm({$objectParent->getId()}, {$object->getId()}, " . '"' . md5('subContenidosFrm.php') . '"' . ");'>
                                                     <span class='material-icons align-middle'>edit</span>
                                                     </button>
@@ -145,7 +145,7 @@ if ($session) {
                     $tm = 16;
                     $list = '
                     <div class="col-xl-12 p-5 bg-light text-center">
-                        <div class="alert alert-warning">Aún no has registrado subtemas!</div>
+                        <div class="alert alert-warning text-break"><h5 class="font-weight-lighter">Aún no has registrado subtemas!</h5></div>
                     </div>
                     ';
                 }
