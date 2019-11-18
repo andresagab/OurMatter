@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-1 col-sm-1 col-md-1 col-xl-2"></div>
             <div class="col-10 col-sm-10 col-md-10 col-xl-8 text-center">
-                <img src="App/img/informacion_img.jpg" class="img-fluid" alt="Responsive image">
+                <img src="App/img/not_image.jpg" class="img-fluid" alt="Responsive image">
             </div>
             <div class="col-1 col-sm-1 col-md-1 col-xl-2"></div>
         </div>
@@ -38,7 +38,7 @@
             <div class="col-xl-8">
                 <div class="card-deck pb-4">
                     <div class="card bg-light border-dark">
-                        <img src="App/img/compuestoOrganico.png" class="card-img-top" alt="Responsive image">
+                        <img src="App/img/not_image.jpg" class="card-img-top" alt="Responsive image">
                         <div class="card-body">
                             <h4 class="card-title">COMPUESTOS ORGANICOS</h4>
                             <p class="card-text text-justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
@@ -54,7 +54,7 @@
                         </ul>
                     </div>
                     <div class="card bg-light border-dark">
-                        <img src="App/img/wallpaperHomePublicSimb.png" class="card-img-top" alt="Responsive image">
+                        <img src="App/img/not_image.jpg" class="card-img-top" alt="Responsive image">
                         <div class="card-body">
                             <h4 class="card-title">HIDROCARBUROS ALIFATICOS</h4>
                             <p class="card-text text-justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
@@ -72,7 +72,7 @@
                 </div>
                 <div class="card-deck">
                     <div class="card bg-light border-dark">
-                        <img src="App/img/petroleo.jpg" class="card-img-top" alt="Responsive image">
+                        <img src="App/img/not_image.jpg" class="card-img-top" alt="Responsive image">
                         <div class="card-body">
                             <h4 class="card-title">EL PETROLEO Y GAS NATURAL</h4>
                             <p class="card-text text-justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
@@ -86,7 +86,7 @@
                         </ul>
                     </div>
                     <div class="card bg-light border-dark">
-                        <img src="App/img/compuestoOxigenados.jpg" class="card-img-top" alt="Responsive image">
+                        <img src="App/img/not_image.jpg" class="card-img-top" alt="Responsive image">
                         <div class="card-body">
                             <h4 class="card-title">COMPUESTOS OXIGENADOS</h4>
                             <p class="card-text text-justify">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>

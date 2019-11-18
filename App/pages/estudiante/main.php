@@ -112,13 +112,13 @@ if ($session){
                         </div>
                         <!--END ULTIMO SUBTEMA-->
                         <!--NOTAS RAPIDAS-->
-                        <div class="col-xl-12">
+                        <!--<div class="col-xl-12">
                             <hr class="my-4">
                         </div>
                         <h3 class="text-break font-weight-normal py-5 pl-3">NOTAS</h3>
-                        <div class="col-xl-12">
+                        <div class="col-xl-12">-->
                             <!--PENDIENTE NOTAS-->
-                        </div>
+                        <!--</div>-->
                         <!--END NOTAS RAPIDAS-->
                         <!--EVALUACIONES PENDIENTES-->
                         <div class="col-xl-12">

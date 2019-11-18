@@ -7,7 +7,6 @@
  */
 
 //Agregamos los recursos necesarios
-
 require_once dirname(__FILE__) . '.\..\..\php\Scripts\general_funcitons.php';
 require_once dirname(__FILE__) . '.\..\..\php\Class\Conector.php';
 require_once dirname(__FILE__) . '.\..\..\php\Class\Usuario.php';

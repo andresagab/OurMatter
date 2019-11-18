@@ -77,11 +77,11 @@ if ($session){
                                 Configuración
                             </a>
                         </li>
-                        <li class="nav-item" id="btnConfiguracionPassword" >
+                        <!--<li class="nav-item" id="btnConfiguracionPassword" >
                             <a class="nav-link" href="home.php?pg=6" data-toggle="tooltip" data-placemente="bottom" title="Cambiar contraseña">
                                 <span class="material-icons">account_circle</span>
                             </a>
-                        </li>
+                        </li>-->
                         <li class="nav-item" id="btnLogOut" data-toggle="tooltip" data-placemente="bottom" title="Cerrar sesión">
                             <a class="nav-link" href="#">
                                 <span class="material-icons">exit_to_app</span>

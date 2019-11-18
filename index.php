@@ -43,7 +43,7 @@ $toast = "<input type='hidden' id='toastAction' name='toastAction' value='$tm'>"
 <!DOCTYPE html>
 <html>
     <head>
-        <title>OurMatter - Química</title>
+        <title>OurMatter - <?= $sitio->getNameMateria(); ?></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=500, init-scale=1, maximum-scale=1">
         <link rel="stylesheet" href="App/frameworks/Bootstrap/css/bootstrap.min.css">
