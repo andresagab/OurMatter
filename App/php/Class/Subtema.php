@@ -157,7 +157,7 @@ class Subtema
     /**
      * @param $filter : String con el filtro sql deseado, sin el where incluido.
      * @param $order : String con el orden deseado.
-     * @return array : Vector que contiene los registros en tipo de objeto 'Sitio'
+     * @return Subtema[] : Vector que contiene los registros en tipo de objeto 'Sitio'
      */
     public static function getObjects($filter, $order){
         $data = Subtema::getList($filter, $order)['data'];

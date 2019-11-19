@@ -137,8 +137,8 @@ if ($session) {
                         <div class="col-xl-12 pb-5 bg-light">
                             <div class="row">
                                 <div class="col-md-1"></div>
-                                <div class="col-md-10">
-                                    <div class="alert alert-primary">ESTE CONTENIDO AÚN NO TIENE SUBTEMAS REGISTRADOS, COMUNICATE CON TU DOCENTE.</div>
+                                <div class="col-md-10 pt-5">
+                                    <div class="alert alert-primary text-center text-break"><h5 class="font-weight-lighter align-middle">ESTE CONTENIDO AÚN NO TIENE SUBTEMAS REGISTRADOS, COMUNICATE CON TU DOCENTE.</h5></div>
                                 </div>
                             </div>
                         </div>';

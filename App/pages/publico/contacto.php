@@ -32,7 +32,7 @@ if ($sitio->getId() == null) {
 ?>
 <!--CONTACT-->
 <div class="col-xl-12 text-center">
-    <h1 class="display-3 text-light">CONTACTO</h1>
+    <h1 class="display-4 text-light">CONTACTO</h1>
 </div>
 <div class="row m-0 p-0">
     <div class="col-xl-12 d-none d-sm-none d-md-none d-xl-block pt-4 pb-5">
