@@ -13,7 +13,7 @@ class Conector {
         $this->puerto = '3306';
         $this->controlador = 'mysql';
         $this->usuario = 'root';
-        $this->clave = '12345';
+        $this->clave = '';
         $this->bd = 'ourmatter';
     }
 

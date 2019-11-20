@@ -49,13 +49,13 @@ if ($session) {
                                     <td>{$object->getNombres()}</td>
                                     <td>{$object->getUsuario()}</td>
                                     <td>
-                                        <a data-toggle='tooltip' data-placement='bottom' title='Editar' onclick='openFrm({$object->getId()}, " . '"' . md5('estudiantesFrm.php') . '"' . ");'>
+                                        <a data-toggle='tooltip' title='Editar' onclick='openFrm({$object->getId()}, " . '"' . md5('estudiantesFrm.php') . '"' . ");'>
                                             <span class='material-icons text-success' style='cursor: pointer;'>edit</span>
                                         </a>
-                                        <a data-toggle='tooltip' data-placement='left' title='Evaluaciones' onclick='openEvaluaciones({$object->getId()}, " . '"' . md5('evaluacionesEstudiante.php') . '"' . ");'>
-                                            <span class='material-icons text-info' style='cursor: pointer;'>list_ait</span>
+                                        <a data-toggle='tooltip' title='Evaluaciones' onclick='openEvaluaciones({$object->getId()}, " . '"' . md5('evaluacionesEstudiante.php') . '"' . ");'>
+                                            <span class='material-icons text-info' style='cursor: pointer;'>list</span>
                                         </a>
-                                        <a class='" . $btnDelete[1] . "' data-toggle='tooltip' data-placement='bottom' title='Eliminar' " . $btnDelete[0] . ">
+                                        <a class='" . $btnDelete[1] . "' data-toggle='tooltip' title='Eliminar' " . $btnDelete[0] . ">
                                             <span class='material-icons text-danger' style='cursor: pointer;' data-toggle='modal' data-target='#del_{$object->getId()}'>delete</span>
                                         </a>
                                     </td>
@@ -90,7 +90,10 @@ if ($session) {
                     <div class='col-xl-2'></div>
                 </div>
             </div>";
-        } else $tm = 16;
+        } else {
+            $tm = 16;
+            $list = '<div class="col-xl-12 p-5"><div class="alert alert-warning text-center text-break"><h5 class="font-weight-lighter">Aún no se han registrado estudiantes.</h5></div></div>';
+        }
         ?>
         <script src="./../../js/docente/estudiantes.js"></script>
         <div class="col-xl-12 h-100 bg-light mt-2 p-0">

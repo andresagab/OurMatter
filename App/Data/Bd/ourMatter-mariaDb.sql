@@ -2,7 +2,6 @@
   Script de creación de tablas y base de datos ourmatter
  */
 
-/*CREATE DATABASE IF NOT EXISTS ourmatter DEFAULT CHARACTER SET UTF8;*/
 CREATE DATABASE IF NOT EXISTS ourmatter;
 USE ourmatter;
 
@@ -24,7 +23,7 @@ CREATE TABLE estudiante(
 CREATE TABLE sitio(
     id int AUTO_INCREMENT PRIMARY KEY,
     name_materia varchar(20) not null unique,
-    descripcion_materia text not null,
+    descripcion_materia varchar(1000) not null unique,
     img_materia varchar(100) not null unique,
     img_materiaInformacion varchar(100) not null unique,
     name_institucion varchar(50) not null unique,
@@ -41,9 +40,8 @@ CREATE TABLE sitio(
 CREATE TABLE tema(
     id int AUTO_INCREMENT PRIMARY KEY,
     nombre varchar (200) not null,
-    descripcion text not null,
-    img varchar (100) not null,
-    FULLTEXT (descripcion)
+    descripcion varchar (1000) not null,
+    img varchar (100) not null
 );
 
 CREATE TABLE sub_tema(
@@ -52,6 +50,7 @@ CREATE TABLE sub_tema(
     nombre varchar (200) not null,
     contenido text not null,
     img varchar(100),
+    FULLTEXT (contenido),
     INDEX (id_tema),
     FOREIGN KEY (id_tema) REFERENCES tema(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -80,7 +79,7 @@ CREATE TABLE evaluacion(
 CREATE TABLE evaluacion_pregunta(
     id int AUTO_INCREMENT PRIMARY KEY,
     id_evaluacion int not null,
-    pregunta text not null,
+    pregunta varchar(1000) not null,
     INDEX (id_evaluacion),
     FOREIGN KEY (id_evaluacion) REFERENCES evaluacion(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
@@ -88,7 +87,7 @@ CREATE TABLE evaluacion_pregunta(
 CREATE TABLE evaluacion_opcion(
     id int AUTO_INCREMENT PRIMARY KEY,
     id_evaluacionPregunta int not null,
-    opcion text not null,
+    opcion varchar(500) not null,
     correcta boolean not null,
     INDEX (id_evaluacionPregunta),
     FOREIGN KEY (id_evaluacionPregunta) REFERENCES evaluacion_pregunta(id) ON DELETE RESTRICT ON UPDATE CASCADE

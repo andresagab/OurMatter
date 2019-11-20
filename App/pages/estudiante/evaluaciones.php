@@ -124,7 +124,10 @@ if ($session) {
                     <div class='col-xl-0'></div>
                 </div>
             </div>";
-        } else $tm = 16;
+        } else {
+            $tm = 16;
+            $list = '<div class="col-xl-12 p-5"><div class="alert alert-warning text-center text-break"><h5 class="font-weight-lighter">Aún no se han registrado evaluaciones.</h5></div></div>';
+        }
         ?>
         <script src="./../../js/estudiante/evaluaciones.js"></script>
         <div class="col-xl-12 h-100 bg-light mt-2 p-0">
